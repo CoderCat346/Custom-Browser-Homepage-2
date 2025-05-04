@@ -1,0 +1,43 @@
+html, body {
+    height: 100%;
+}
+
+main {
+    display: flex; /* enables flex layout */
+    height: 100vh;
+}
+
+.LeftSidebar, .RightSidebar {
+    width: 40px;
+    writing-mode: vertical-rl;
+    text-align: center;
+    padding: 10px;
+}
+
+.PageArea {
+    display: flex;
+    flex: 1; /* This ensures all widget columns share the available width equally */
+    flex-direction: column;
+}
+
+.SearchArea {
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.WidgetsArea {
+    display: flex;
+    flex: 1;
+}
+
+.WidgetColumn1,
+.WidgetColumn2,
+.WidgetColumn3 {
+    display: flex;
+    flex: 1;
+    margin: 10px; /* It gives breathing room between columns and prevents them from sticking together. */
+    padding: 10px; /* It prevents content (like text or widgets) from touching the edges. */
+    flex-direction: column; /* Arranges the child elements vertically */
+}
