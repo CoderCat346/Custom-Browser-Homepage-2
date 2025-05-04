@@ -8,10 +8,12 @@ main {
 }
 
 .LeftSidebar, .RightSidebar {
-    width: 40px;
-    writing-mode: vertical-rl;
-    text-align: center;
+    width: 60px;
     padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px; /* Space between buttons */
 }
 
 .PageArea {

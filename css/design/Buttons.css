@@ -1,0 +1,12 @@
+.SettingsBtn, .ThemeToggleBtn {
+    background-color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    font-size: 20px;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.SettingsBtn:hover, .ThemeToggleBtn:hover {
+    transform: scale(1.20);
+}
