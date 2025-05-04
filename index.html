@@ -14,13 +14,18 @@
         <link rel="stylesheet" href="/css/layout.css" rel="preload" as="style">
         <link rel="stylesheet" href="/css/design/global.css" rel="preload" as="style">
         <link rel="stylesheet" href="/css/design/Buttons.css" rel="preload" as="style">
+        <link rel="stylesheet" href="/css/design/SearchBar.css" rel="preload" as="style">
     </head>
     <body>
         <main>
             <aside class="LeftSidebar">Shortcuts</aside>
     
             <section class="PageArea">
-                <header class="SearchArea">Search Bar</header>
+                <header class="SearchArea">
+                    <form id="search-form" autocomplete="off">
+                        <input type="text" class="search-bar" id="search-input" placeholder="Search..." />
+                    </form>
+                </header>
     
                 <section class="WidgetsArea">
                     <aside class="WidgetColumn1">
@@ -41,5 +46,6 @@
         </main>
 
         <!-- <script type="module" src="main.js"></script> -->
+         <script src="/js/SearchBar.js"></script>
     </body>
 </html>
