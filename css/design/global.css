@@ -8,7 +8,7 @@
 /* Temporary coloring for layout visualization */
 .LeftSidebar       { background: #d3d3d3; }
 .RightSidebar      { background: #d3d3d3; }
-/* .SearchArea        { background: #a0d2eb; } */
+.SearchArea        { background: #a0d2eb; }
 .WidgetColumn1     { background: #d4f4dd; }
 .WidgetColumn2     { background: #fce1e4; }
 .WidgetColumn3     { background: #fff0b3; }
@@ -19,3 +19,25 @@
     margin-bottom: 10px;
     background: white;
 }
+
+/* global.css */
+:root {
+    /* Colors */
+    --bg-dark: #1e1e30;
+    --bg-darker: #2a2a40;
+    --fg-light: #ffffff;
+    --fg-mid: #cccccc;
+    --primary: #00aaff;
+    --primary-hover: #008ecc;
+  
+    /* Radii & Shadows */
+    --radius-sm: 12px;
+    --radius-lg: 20px;
+    --shadow-focus: 0 0 8px rgba(0, 170, 255, 0.8);
+    --shadow-modal: 0 0 12px rgba(0, 170, 255, 0.2);
+    
+    /* Sizing */
+    --input-height: 40px;
+    --font-base: 16px;
+  }
+  

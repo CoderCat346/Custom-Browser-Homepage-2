@@ -15,10 +15,17 @@
         <link rel="stylesheet" href="/css/design/global.css" rel="preload" as="style">
         <link rel="stylesheet" href="/css/design/Buttons.css" rel="preload" as="style">
         <link rel="stylesheet" href="/css/design/SearchBar.css" rel="preload" as="style">
+        <link rel="stylesheet" href="/css/design/Modal.css" rel="preload" as="style">
+        
     </head>
     <body>
         <main>
-            <aside class="LeftSidebar">Shortcuts</aside>
+            <aside class="LeftSidebar">
+                <button class="AddBtn" >+</button>
+                <button class="DeleteBtn">🗑️</button>
+                <button class="ConfirmDeleteBtn" style="display: none; margin: 10px;">🗑️✔️</button>
+                <div class="ShortcutsList"></div>
+            </aside>
     
             <section class="PageArea">
                 <header class="SearchArea">
@@ -45,7 +52,21 @@
             </aside>
         </main>
 
+        <div id="addModal" class="modal">
+            <div class="modal-content">
+              <span class="CloseBtn">&times;</span>
+              <h2>Add New Shortcut</h2>
+              <form autocomplete="off">
+                <label for="shortcut-url">URL:</label>
+                <input type="url" id="shortcut-url" name="shortcut-url" required><br><br>
+                <button type="submit">Add Shortcut</button>
+              </form>
+            </div>
+          </div>
+                  
+
         <!-- <script type="module" src="main.js"></script> -->
-         <script src="/js/SearchBar.js"></script>
+        <script src="/js/SearchBar.js"></script>
+        <script src="/js/Shortcuts.js"></script>
     </body>
 </html>

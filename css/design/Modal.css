@@ -1,0 +1,70 @@
+/* modal.css */
+.modal {
+  display: none; 
+  position: fixed;
+  z-index: 999;
+  inset: 0;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+}
+
+.modal-content {
+  background-color: var(--bg-dark);
+  color: var(--fg-light);
+  margin: 10% auto;
+  padding: 20px;
+  border: 2px solid transparent;
+  border-radius: var(--radius-lg);
+  width: 400px;
+  max-width: 90%;
+  box-shadow: var(--shadow-modal);
+  position: relative;
+  transition: all 0.3s ease;
+  font-family: sans-serif;
+}
+
+.modal-content input[type="url"] {
+  width: 100%;
+  height: var(--input-height);
+  padding: 0 15px;
+  margin: 8px 0 16px;
+  border: 2px solid transparent;
+  border-radius: var(--radius-sm);
+  background-color: var(--bg-darker);
+  color: var(--fg-light);
+  font-size: 14px;
+  outline: none;
+}
+
+.modal-content input[type="url"]::placeholder {
+  color: var(--fg-mid);
+}
+
+.modal-content input[type="url"]:focus {
+  box-shadow: var(--shadow-focus);
+}
+
+.modal-content button[type="submit"] {
+  background-color: var(--primary);
+  color: var(--fg-light);
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 10px 20px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.modal-content button[type="submit"]:hover {
+  background-color: var(--primary-hover);
+}
+
+.CloseBtn {
+  position: absolute;
+  right: 15px;
+  top: 10px;
+  font-size: 24px;
+  cursor: pointer;
+  color: var(--fg-light);
+}
