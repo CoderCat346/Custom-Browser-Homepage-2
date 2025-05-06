@@ -1,0 +1,8 @@
+.Clock {
+    background-color: var(--bg-dark);
+    color:var(--fg-light);
+    border-radius: 15px;
+    font-size: 2rem;
+    font-family: monospace;
+    text-align: center;
+}
