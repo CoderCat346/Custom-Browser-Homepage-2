@@ -27,6 +27,7 @@
         <link rel="stylesheet" href="/css/design/HelloUser.css" rel="preload" as="style">
         <link rel="stylesheet" href="/css/design/Clock.css" rel="preload" as="style">
         <link rel="stylesheet" href="/css/design/Notes.css" rel="preload" as="style">
+        <link rel="stylesheet" href="/css/design/Quran.css" rel="preload" as="style">
         <!-- </CSS> -->
         
     </head>
@@ -56,7 +57,14 @@
                     </aside>
     
                     <article class="WidgetColumn2">
-                        <section></section>
+                        <section id="Quran-widget-wrapper">
+                            <div id="Quran-widget">
+                                <p id="ayah-arabic" style="font-size: 1.5em;"></p>
+                                <p id="ayah-translation"></p>
+                                <small id="ayah-info"></small>
+                                <!-- JS dynamically fetches daily verse -->
+                            </div>
+                        </section>
                         <section></section>
                     </article>
                 </section>
@@ -87,6 +95,7 @@
         <script src="/js/HelloUser.js"></script>
         <script src="/js/Clock.js"></script>
         <script src="/js/Notes.js"></script>
+        <script src="/js/Quran.js"></script>
         <!-- </JavaScript> -->
     </body>
 </html>
