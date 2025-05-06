@@ -8,7 +8,7 @@ main {
 }
 
 .LeftSidebar, .RightSidebar {
-    width: 80px;
+    width: 70px;
     padding: 10px;
     display: flex;
     flex-direction: column;
@@ -21,6 +21,9 @@ main {
     display: flex;
     flex-direction: column;
     gap: 10px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: 100%;
   }
 
 .PageArea {
@@ -42,11 +45,17 @@ main {
 }
 
 .WidgetColumn1,
-.WidgetColumn2,
-.WidgetColumn3 {
+.WidgetColumn2 {
     display: flex;
-    flex: 1;
     margin: 10px; /* It gives breathing room between columns and prevents them from sticking together. */
     padding: 10px; /* It prevents content (like text or widgets) from touching the edges. */
     flex-direction: column; /* Arranges the child elements vertically */
+}
+
+.WidgetColumn1 {
+    flex: 7.5;
+}
+
+.WidgetColumn2 {
+    flex: 2.5;
 }

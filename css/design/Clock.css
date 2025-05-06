@@ -4,5 +4,6 @@
     border-radius: 15px;
     font-size: 2rem;
     font-family: monospace;
-    text-align: center;
+    text-align: left;
+    width: fit-content;
 }

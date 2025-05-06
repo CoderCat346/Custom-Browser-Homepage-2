@@ -1,8 +1,8 @@
     /* Styling for the Notes Section */
     .Notes {
-        width: 100%;
+        width: 37%;
         max-width: 600px;
-        margin: 20px auto;
+        margin: 20px 0;
         padding: 15px;
         background-color: var(--bg-dark);
         border-radius: var(--radius-lg);
