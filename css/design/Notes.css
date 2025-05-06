@@ -1,0 +1,38 @@
+    /* Styling for the Notes Section */
+    .Notes {
+        width: 100%;
+        max-width: 600px;
+        margin: 20px auto;
+        padding: 15px;
+        background-color: var(--bg-dark);
+        border-radius: var(--radius-lg);
+        box-shadow: var(--shadow-modal);
+        font-family: sans-serif;
+    }
+
+    /* Styling for the Textarea */
+    .notebook {
+        width: 100%;
+        height: 200px;
+        padding: 15px;
+        font-size: var(--font-base);
+        line-height: 1.5;
+        border: 2px solid transparent;
+        border-radius: var(--radius-sm);
+        background-color: var(--bg-darker);
+        color: var(--fg-light);
+        outline: none;
+        resize: none;
+        transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    /* Placeholder Styling */
+    .notebook::placeholder {
+        color: var(--fg-mid);
+    }
+
+    /* Focus Effect */
+    .notebook:focus {
+        border-color: var(--primary);
+        box-shadow: var(--shadow-focus);
+    }
