@@ -58,6 +58,7 @@ main {
 
 .WidgetColumn2 {
     flex: 2.5;
+    max-width: 250px;
 }
 
 .WidgetColumn2 > * {

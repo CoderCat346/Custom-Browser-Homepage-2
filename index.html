@@ -29,6 +29,7 @@
         <link rel="stylesheet" href="/css/design/Notes.css" rel="preload" as="style">
         <link rel="stylesheet" href="/css/design/Quran.css" rel="preload" as="style">
         <link rel="stylesheet" href="/css/design/Weather.css" rel="preload" as="style">
+        <link rel="stylesheet" href="/css/design/RSS.css" rel="preload" as="style">
         <!-- </CSS> -->
         
     </head>
@@ -84,6 +85,18 @@
                                 <button id="saveBtn">Add Widget</button>
                             </div>
                         </section>
+                        <section id="rss-widget-wrapper">
+                            <h2>📰 My RSS Feed Widgets</h2>
+                            <div id="rssWidgetContainer"></div>
+                        
+                            <button id="rssToggleBtn">Show RSS Widget Creator</button>
+                        
+                            <div id="rssWidgetCreator">
+                            <label for="rssInput"><strong>Paste any RSS feed URL:</strong></label><br>
+                            <input type="url" id="rssInput" placeholder="e.g. https://feeds.bbci.co.uk/news/rss.xml" style="width: 100%;"><br>
+                            <button id="rssSaveBtn">Add RSS Widget</button>
+                            </div>
+                        </section>
                         <section></section>
                     </article>
                 </section>
@@ -116,6 +129,7 @@
         <script src="/js/Notes.js"></script>
         <script src="/js/Quran.js"></script>
         <script src="/js/Weather.js"></script>
+        <script src="/js/RSS.js"></script>
         <!-- </JavaScript> -->
     </body>
 </html>
