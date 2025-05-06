@@ -33,7 +33,7 @@
     /* Radii & Shadows */
     --radius-sm: 12px;
     --radius-lg: 20px;
-    --shadow-focus: 0 0 8px rgba(0, 170, 255, 0.8);
+    --shadow-focus: 0 0 14px rgba(0, 170, 255, 0.8);
     --shadow-modal: 0 0 12px rgba(0, 170, 255, 0.2);
     
     /* Sizing */
