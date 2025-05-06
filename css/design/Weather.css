@@ -1,0 +1,35 @@
+#weather-widget-wrapper {
+    background-color: var(--bg-dark);
+    color: var(--fg-light);
+    font-family: sans-serif;
+    border-radius: 15px;
+  }
+  
+  #weather-widget-wrapper button {
+    background-color: var(--primary);
+    color: var(--fg-light);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    margin: 2px;
+    font-size: 14px;
+    border:none;
+    padding: 2px;
+  }
+  
+  #weather-widget-wrapper button:hover {
+    background-color: var(--primary-hover);
+  }
+  
+  #weather-widget-wrapper textarea {
+    background-color: var(--bg-darker);
+    color: var(--fg-light);
+    border-radius: var(--radius-sm);
+    border: 2px solid transparent;
+    padding: 10px;
+  }
+  
+  #weather-widget-wrapper textarea::placeholder {
+    color: var(--fg-mid);
+  }
+  

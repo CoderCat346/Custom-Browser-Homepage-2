@@ -28,6 +28,7 @@
         <link rel="stylesheet" href="/css/design/Clock.css" rel="preload" as="style">
         <link rel="stylesheet" href="/css/design/Notes.css" rel="preload" as="style">
         <link rel="stylesheet" href="/css/design/Quran.css" rel="preload" as="style">
+        <link rel="stylesheet" href="/css/design/Weather.css" rel="preload" as="style">
         <!-- </CSS> -->
         
     </head>
@@ -65,6 +66,24 @@
                                 <!-- JS dynamically fetches daily verse -->
                             </div>
                         </section>
+                        <section id="weather-widget-wrapper">
+                            <h2>🌤️ My Weather Widgets</h2>
+                            <div id="widgetContainer"></div>
+                            <!-- Displays added AQI widgets -->
+        
+                            <button id="toggleBtn">Show Widget Creator</button>
+                            <!-- Reveals the input form -->
+        
+                            <div id="widgetCreator" style="display: none;">
+                                <div class="widget-actions">
+                                    <button onclick="window.open('https://www.aqi.in/aqi-widget', '_blank')">Create Widget on AQI.in</button>
+                                </div>
+        
+                                <label for="widgetInput"><strong>Paste your AQI widget code here:</strong></label><br>
+                                <textarea id="widgetInput" placeholder="Paste widget code from aqi.in..."></textarea><br>
+                                <button id="saveBtn">Add Widget</button>
+                            </div>
+                        </section>
                         <section></section>
                     </article>
                 </section>
@@ -96,6 +115,7 @@
         <script src="/js/Clock.js"></script>
         <script src="/js/Notes.js"></script>
         <script src="/js/Quran.js"></script>
+        <script src="/js/Weather.js"></script>
         <!-- </JavaScript> -->
     </body>
 </html>

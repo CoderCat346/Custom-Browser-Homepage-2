@@ -63,5 +63,6 @@ main {
 .WidgetColumn2 > * {
     height: 200px;
     overflow-y: auto;
+    margin: 15px;
   }
   
