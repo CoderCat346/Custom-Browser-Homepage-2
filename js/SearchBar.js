@@ -1,17 +1,20 @@
-// Get references to the form, input field, and clear button
-const searchForm = document.getElementById('search-form'); // The search form element
-const searchInput = document.getElementById('search-input'); // The search text field
+const form = document.getElementById('search-form');
+const input = document.getElementById('search-input');
+const clearBtn = document.getElementById('clear-button');
+const suggestionsBox = document.getElementById('suggestions');
 
-// Search form submission handler
-searchForm.addEventListener('submit', function (event) {
-    event.preventDefault();     // Prevent default form submission (page reload)
-    const searchQuery = searchInput.value.trim(); // Get and trim the user input
+// Redirect to Brave Search
+form.addEventListener('submit', (e) => {
+  e.preventDefault();
+  const query = input.value.trim();
+  if (query) {
+    window.location.href = `https://search.brave.com/search?q=${encodeURIComponent(query)}`;
+  }
+});
 
-    if (searchQuery !== '') {
-        // Construct search engine URL (Startpage here, can be replaced)
-        const searchUrl = `https://search.brave.com/search?q=${encodeURIComponent(searchQuery)}`;
-        window.location.href = searchUrl; // Redirect to the search results
-    } else {
-        console.log('Please enter a search term.'); // Optional fallback
-    }
+// Clear button
+clearBtn.addEventListener('click', () => {
+  input.value = '';
+  suggestionsBox.innerHTML = '';
+  input.focus();
 });

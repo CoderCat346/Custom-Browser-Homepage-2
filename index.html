@@ -45,9 +45,21 @@
             <section class="PageArea">
                 <header class="SearchArea">
                     <form id="search-form" autocomplete="off">
-                        <input type="text" class="search-bar" id="search-input" placeholder="Private Search 🔎" />
+                        <div style="position: relative; width: 600px;">
+                        <input
+                          type="text"
+                          class="search-bar"
+                          id="search-input"
+                          placeholder="Private Search 🔎"
+                        />
+                        <button
+                          type="button"
+                          id="clear-button"
+                          style="position: absolute; right: 10px; top: 8px; background: none; border: none; color: var(--fg-mid); font-size: 18px; cursor: pointer;"
+                        >×</button>
+                        </div>
                     </form>
-                </header>
+                </header>                 
     
                 <section class="WidgetsArea">
                     <aside class="WidgetColumn1">
