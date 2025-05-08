@@ -45,7 +45,7 @@
             <section class="PageArea">
                 <header class="SearchArea">
                     <form id="search-form" autocomplete="off">
-                        <div style="position: relative; width: 600px;">
+                        <div class="search-wrapper">
                         <input
                           type="text"
                           class="search-bar"
@@ -53,11 +53,11 @@
                           placeholder="Private Search 🔎"
                           autofocus
                         />
-                        <button
-                          type="button"
-                          id="clear-button"
-                          style="position: absolute; right: 10px; top: 8px; background: none; border: none; color: var(--fg-mid); font-size: 18px; cursor: pointer;"
-                        >×</button>
+                        <button type="button" id="clear-button" class="clear-btn">×</button>
+                        <div id="engine-selector" class="engine-selector">
+                          <img id="current-icon" alt="Search Engine" />
+                          <div id="engine-list" class="engine-list"></div>
+                        </div>
                         </div>
                     </form>
                 </header>                 
