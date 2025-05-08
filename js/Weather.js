@@ -1,5 +1,6 @@
 // Get references to key DOM elements for later use
-const input = document.getElementById('widgetInput');        // Textarea for pasting widget embed code
+const widgetInput = document.getElementById('widgetInput'); // Rename input to widgetInput
+       // Textarea for pasting widget embed code
 const saveBtn = document.getElementById('saveBtn');          // Button to save the pasted code
 const container = document.getElementById('widgetContainer'); // Where the widgets will be displayed
 const toggleBtn = document.getElementById('toggleBtn');      // Button to toggle the creator interface
