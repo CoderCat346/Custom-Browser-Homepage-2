@@ -1,0 +1,30 @@
+.slidebar {
+    position: fixed;
+    top: 0;
+    right: -320px;
+    width: 300px;
+    height: 100%;
+    background-color: var(--bg-darker);
+    color: var(--fg-light);
+    box-shadow: var(--shadow-modal);
+    transition: right 0.3s ease;
+    padding: 20px;
+    z-index: 999;
+    border-left: 1px solid var(--primary);
+    overflow-y: auto;
+}
+
+.slidebar.open {
+    right: 0;
+}
+
+.close-slidebar {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: transparent;
+    border: none;
+    color: var(--fg-light);
+    font-size: 1.5rem;
+    cursor: pointer;
+}

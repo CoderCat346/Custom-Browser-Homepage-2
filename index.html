@@ -31,6 +31,7 @@
         <link rel="stylesheet" href="/css/design/Weather.css" rel="preload" as="style">
         <link rel="stylesheet" href="/css/design/RSS.css" rel="preload" as="style">
         <link rel="stylesheet" href="/css/design/News.css" rel="preload" as="style">
+        <link rel="stylesheet" href="/css/design/SlideBar.css" rel="preload" as="style">
         <!-- </CSS> -->
         
     </head>
@@ -134,7 +135,13 @@
               </form>
             </div>
         </div>
-                  
+
+        <div id="SettingsSidebar" class="slidebar">
+            <button id="closeSettingsBtn" class="close-slidebar">×</button>
+            <h2>⚙️ Settings</h2>
+            <div class="settings-content">
+            </div>
+        </div>      
 
         <!-- <JavaScript> -->
         <script src="/js/SearchBar.js"></script>
@@ -146,6 +153,7 @@
         <script src="/js/Weather.js"></script>
         <script src="/js/RSS.js"></script>
         <script src="/js/News.js"></script>
+        <script src="/js/Slidebar.js"></script>
         <!-- </JavaScript> -->
     </body>
 </html>
