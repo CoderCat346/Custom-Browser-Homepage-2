@@ -50,15 +50,7 @@ main {
     margin: 10px; /* It gives breathing room between columns and prevents them from sticking together. */
     padding: 10px; /* It prevents content (like text or widgets) from touching the edges. */
     flex-direction: column; /* Arranges the child elements vertically */
-}
-
-.WidgetColumn1 {
-    flex: 7.5;
-}
-
-.WidgetColumn2 {
-    flex: 2.5;
-    max-width: 250px;
+    transition: width 0.3s ease;
 }
 
 .WidgetColumn2 > * {
@@ -66,4 +58,3 @@ main {
     overflow-y: auto;
     margin: 15px;
   }
-  

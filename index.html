@@ -139,9 +139,13 @@
         <div id="SettingsSidebar" class="slidebar">
             <button id="closeSettingsBtn" class="close-slidebar">×</button>
             <h2>⚙️ Settings</h2>
-            <div class="settings-content">
+            <div>
+                <label for="layoutRatio">🧭 Adjust Layout (Left vs Right)</label>
+                <input type="range" id="layoutRatio" min="30" max="90" value="75">
+                <br>
+                <small><span id="leftPercent">75</span>% Left / <span id="rightPercent">25</span>% Right</small>
             </div>
-        </div>      
+        </div>     
 
         <!-- <JavaScript> -->
         <script src="/js/SearchBar.js"></script>
@@ -154,6 +158,8 @@
         <script src="/js/RSS.js"></script>
         <script src="/js/News.js"></script>
         <script src="/js/Slidebar.js"></script>
+        <script src="/js/layoutChanger.js"></script>
+
         <!-- </JavaScript> -->
     </body>
 </html>
