@@ -27,7 +27,7 @@ toggleBtn.addEventListener('click', () => {
 
 // Save widget logic when "Add Widget" button is clicked
 saveBtn.addEventListener('click', () => {
-  const code = input.value.trim(); // Remove surrounding whitespace
+  const code = widgetInput.value.trim(); // Remove surrounding whitespace
 
   // Basic validation: must contain AQI widget structure and <script>
   if (!code.includes('data-aqi-widget-payload') || !code.includes('<script')) {
@@ -41,7 +41,7 @@ saveBtn.addEventListener('click', () => {
   localStorage.setItem('aqi_widgets', JSON.stringify(widgets)); // Save updated array
 
   renderWidget(code, widgets.length - 1); // Render the newly added widget
-  input.value = ''; // Clear the input field
+  widgetInput.value = ''; // Clear the input field
 });
 
 // Function to render a widget's HTML code inside a styled container

@@ -1,0 +1,81 @@
+#rss-widget {
+  background-color: var(--bg-dark);
+  color: var(--fg-light);
+  padding: 20px;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-modal);
+  font-family: sans-serif;
+  max-width: 600px;
+}
+
+#rss-widget select {
+  width: 100%;
+  height: var(--input-height);
+  padding: 0 15px;
+  border: 2px solid transparent;
+  border-radius: var(--radius-sm);
+  background-color: var(--bg-darker);
+  color: var(--fg-light);
+  font-size: 14px;
+  outline: none;
+}
+
+#rss-widget select:focus {
+  box-shadow: var(--shadow-focus);
+}
+
+#rss-widget a {
+    color:aliceblue;
+}
+
+.rss-section {
+  margin-bottom: 24px;
+}
+
+.rss-section h3 {
+  font-size: 18px;
+  margin: 16px 0 8px;
+  color: var(--fg-light);
+  border-bottom: 1px solid var(--fg-mid);
+  padding-bottom: 4px;
+}
+
+.rss-section div {
+  margin: 6px 0;
+}
+
+.rss-section ul {
+  padding-left: 20px;
+  margin: 0;
+}
+
+.rss-section li {
+  margin: 6px 0;
+}
+
+.rss-category-selection {
+  margin: 20px 0;
+  padding: 10px;
+  background-color: var(--bg-darker);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-modal);
+  color: var(--fg-light);
+}
+
+.rss-category-selection label {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.rss-category-selection input[type="checkbox"] {
+  margin-right: 10px;
+  accent-color: var(--primary); /* Modern way to style checkboxes */
+}
+
+.rss-category-selection input[type="checkbox"]:hover {
+  transform: scale(1.1);
+  transition: 0.2s;
+}
