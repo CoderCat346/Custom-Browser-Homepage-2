@@ -32,6 +32,7 @@
         <link rel="stylesheet" href="/css/design/RSS.css" rel="preload" as="style">
         <link rel="stylesheet" href="/css/design/News.css" rel="preload" as="style">
         <link rel="stylesheet" href="/css/design/SlideBar.css" rel="preload" as="style">
+        <link rel="stylesheet" href="/css/design/Background.css" rel="preload" as="style">
         <!-- </CSS> -->
         
     </head>
@@ -145,6 +146,21 @@
                 <br>
                 <small><span id="leftPercent">75</span>% Left / <span id="rightPercent">25</span>% Right</small>
             </div>
+            <div class="background-changer">
+                <h3 class="background-changer-title">Change Background</h3>
+                <!-- Select between background color or image -->
+                <label class="background-changer-option">
+                    <input type="radio" name="bgType" value="color" checked onchange="renderOptions(this.value)">
+                    Background Color
+                </label>
+                <label class="background-changer-option">
+                    <input type="radio" name="bgType" value="image" onchange="renderOptions(this.value)">
+                    Background Image
+                </label>
+
+                <!-- Options (like color pickers or image selectors) injected here -->
+                <div id="optionsContainer" class="options-container"></div>
+            </div>
         </div>     
 
         <!-- <JavaScript> -->
@@ -160,6 +176,7 @@
         <script src="/js/Slidebar.js"></script>
         <script src="/js/layoutChanger.js"></script>
         <script src="/js/ThemeToggleBtn.js"></script>
+        <script src="/js/Background.js"></script>
 
         <!-- </JavaScript> -->
     </body>

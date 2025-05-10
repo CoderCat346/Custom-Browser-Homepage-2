@@ -1,0 +1,46 @@
+/* Container for the background changer section */
+.background-changer {
+  border-radius: var(--radius-lg);
+  padding: 10px;
+}
+
+/* Title of the background changer section */
+.background-changer-title {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+/* Style for the radio buttons and labels */
+.background-changer-option {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 16px;
+}
+
+input[type="radio"] {
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+/* Container for options (color picker and image selector) */
+.options-container {
+  margin-top: 15px;
+}
+
+/* For color picker input */
+input[type="color"] {
+  width: 100%;
+  padding: 5px;
+  margin-top: 10px;
+  border-radius: var(--radius-sm);
+  border: none;
+  cursor: pointer;
+}
+
+/* Color preview box */
+#colorPreview {
+  margin-top: 10px;
+  height: 50px;
+  border: 1px solid #ccc;
+  background-color: #fff;
+}
