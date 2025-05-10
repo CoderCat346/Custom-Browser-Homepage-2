@@ -1,4 +1,5 @@
-// Get references to key DOM elements for later use
+document.addEventListener("DOMContentLoaded", function () {
+  // Get references to key DOM elements for later use
 const widgetInput = document.getElementById('widgetInput'); // Rename input to widgetInput
        // Textarea for pasting widget embed code
 const saveBtn = document.getElementById('saveBtn');          // Button to save the pasted code
@@ -106,3 +107,4 @@ function removeWidget(index, wrapper) {
     container.removeChild(wrapper); // Remove widget element from the page
   }
 }
+});
