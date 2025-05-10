@@ -25,7 +25,7 @@
 }
 
 #rss-widget a {
-    color:aliceblue;
+    color:var(--fg-light);
 }
 
 .rss-section {

@@ -40,4 +40,12 @@
     --input-height: 40px;
     --font-base: 16px;
   }
+
+  body.light-theme {
+  --bg-dark: #ffffff;
+  --bg-darker: #eeeeee;
+  --fg-light: #000000;
+  --fg-mid: #333333;
+}
+
   
