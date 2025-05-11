@@ -15,7 +15,13 @@ const imageOptions = [
   { label: 'Clouds', url: '/assets/images/Clouds.jpeg' },
   { label: 'Dessert', url: '/assets/images/Dessert.jpeg' },
   { label: 'Shapes', url: '/assets/images/Shapes.png' },
+  { label: 'Astronomy', url: '/assets/images/Astronomy.png' },
+  { label: 'Mountain 2', url: '/assets/images/Mountain_2.png' },
+  { label: 'Stocks', url: '/assets/images/Stocks.png' },
+  { label: 'Study', url: '/assets/images/Study.png' },
+  { label: 'Shore 2', url: '/assets/images/Shore_2.png' },
 ];
+// Big thanks to https://github.com/faizanusmani20
 
 // Render background options UI
 function renderOptions(type) {
