@@ -8,8 +8,13 @@ function toggleBackgroundChanger() {
 const imageOptions = [
   { label: 'Peak', url: '/assets/images/Peak.jpeg' },
   { label: 'Horizon', url: '/assets/images/Horizon.jpeg' },
-  { label: 'Tides', url: '/assets/images/Tides.jpeg' },
+  { label: 'Mountain', url: '/assets/images/Mountain.jpeg' },
+  { label: 'Stars', url: '/assets/images/Stars.jpeg' },
   { label: 'Shore', url: '/assets/images/Shore.jpeg' },
+  { label: 'Scenery', url: '/assets/images/Scenery.png' },
+  { label: 'Clouds', url: '/assets/images/Clouds.jpeg' },
+  { label: 'Dessert', url: '/assets/images/Dessert.jpeg' },
+  { label: 'Shapes', url: '/assets/images/Shapes.png' },
 ];
 
 // Render background options UI

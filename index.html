@@ -75,7 +75,7 @@
                     </aside>
     
                     <article class="WidgetColumn2">
-                        <section id="Quran-widget-wrapper">
+                        <section id="Quran-widget-wrapper" class="widget-block">
                             <div id="Quran-widget">
                                 <p id="ayah-arabic" style="font-size: 1.5em;"></p>
                                 <p id="ayah-translation"></p>
@@ -83,7 +83,7 @@
                                 <!-- JS dynamically fetches daily verse -->
                             </div>
                         </section>
-                        <section id="weather-widget-wrapper">
+                        <section id="weather-widget-wrapper" class="widget-block">
                             <!-- <h2>🌤️ My Weather Widgets</h2> -->
                             <div id="widgetContainer"></div>
                             <!-- Displays added AQI widgets -->
@@ -101,7 +101,7 @@
                                 <button id="saveBtn">Add Widget</button>
                             </div>
                         </section>
-                        <section id="rss-widget-wrapper">
+                        <section id="rss-widget-wrapper" class="widget-block">
                             <!-- <h2>📰 My RSS Feed Widgets</h2> -->
                             <div id="rssWidgetContainer"></div>
                         
@@ -113,8 +113,8 @@
                             <button id="rssSaveBtn">Add RSS Widget</button>
                             </div>
                         </section>
-                        <section id="rss-widget" class="widget"></section>
-                        <section></section>
+                        <section id="news-widget-wrapper" class="widget-block">
+                        </section>
                     </article>
                 </section>
             </section>
@@ -140,6 +140,14 @@
         <div id="SettingsSidebar" class="slidebar">
             <button id="closeSettingsBtn" class="close-slidebar">×</button>
             <h2>⚙️ Settings</h2>
+            <div class="widget-toggle-section">
+                <h3>🧩 Select Widgets (max 2)</h3>
+                <label><input type="checkbox" class="widget-toggle" value="Quran"> Quran</label><br>
+                <label><input type="checkbox" class="widget-toggle" value="Weather"> Weather</label><br>
+                <label><input type="checkbox" class="widget-toggle" value="RSS"> RSS</label><br>
+                <label><input type="checkbox" class="widget-toggle" value="News"> News</label><br>
+                <small id="widgetLimitWarning" style="color: red; display: none;">Max 2 widgets allowed.</small>
+            </div>
             <div>
                 <label for="layoutRatio">🧭 Adjust Layout (Left vs Right)</label>
                 <input type="range" id="layoutRatio" min="30" max="90" value="75">
@@ -177,6 +185,7 @@
         <script src="/js/layoutChanger.js"></script>
         <script src="/js/ThemeToggleBtn.js"></script>
         <script src="/js/Background.js"></script>
+        <script src="/js/WidgetToggle.js"></script>
 
         <!-- </JavaScript> -->
     </body>

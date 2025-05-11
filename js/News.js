@@ -1,4 +1,4 @@
-const widget = document.getElementById("rss-widget");
+const widget = document.getElementById("news-widget-wrapper");
 
 const PROVIDERS = {
   bbc: {
@@ -34,7 +34,7 @@ const PROVIDERS = {
       environment: ""
     }
   },
-    indianexpress: {
+  indianexpress: {
     name: "Indian Express",
     feeds: {
       world: "https://indianexpress.com/section/world/feed/",
@@ -86,7 +86,7 @@ const CATEGORIES = ["world", "sports", "finance", "tech", "education", "environm
 const STORAGE_KEY = "rss-provider";
 const CATEGORIES_KEY = "rss-categories";
 let currentProvider = localStorage.getItem(STORAGE_KEY) || "bbc";
-let selectedCategories = JSON.parse(localStorage.getItem(CATEGORIES_KEY)) || []; // Default: no categories selected
+let selectedCategories = JSON.parse(localStorage.getItem(CATEGORIES_KEY)) || [];
 
 async function fetchRSS(url) {
   if (!url) return [];
@@ -117,7 +117,6 @@ async function createSection(name, url) {
   }
 
   const list = document.createElement("ul");
-
   for (let item of items) {
     const li = document.createElement("li");
     const link = document.createElement("a");
@@ -141,7 +140,7 @@ function createCategoryCheckboxes() {
     const checkbox = document.createElement("input");
     checkbox.type = "checkbox";
     checkbox.value = category;
-    checkbox.checked = selectedCategories.includes(category); // Check based on saved preferences
+    checkbox.checked = selectedCategories.includes(category);
 
     checkbox.onchange = () => {
       if (checkbox.checked) {
@@ -149,8 +148,8 @@ function createCategoryCheckboxes() {
       } else {
         selectedCategories = selectedCategories.filter((cat) => cat !== category);
       }
-      localStorage.setItem(CATEGORIES_KEY, JSON.stringify(selectedCategories)); // Save the preferences
-      renderWidget(); // Re-render with updated categories
+      localStorage.setItem(CATEGORIES_KEY, JSON.stringify(selectedCategories));
+      renderWidget();
     };
 
     label.appendChild(checkbox);
@@ -162,9 +161,8 @@ function createCategoryCheckboxes() {
 }
 
 async function renderWidget() {
-  widget.innerHTML = ""; // Clear the widget
+  widget.innerHTML = "";
 
-  // Create provider selection dropdown
   const select = document.createElement("select");
   for (let key in PROVIDERS) {
     const opt = document.createElement("option");
@@ -175,24 +173,22 @@ async function renderWidget() {
   }
   select.onchange = () => {
     currentProvider = select.value;
-    localStorage.setItem(STORAGE_KEY, currentProvider); // Save provider preference
-    renderWidget(); // Re-render with new provider
+    localStorage.setItem(STORAGE_KEY, currentProvider);
+    renderWidget();
   };
 
-  widget.appendChild(select); // Append the dropdown
+  widget.appendChild(select);
 
-  // Load selected categories' RSS feeds
   const feeds = PROVIDERS[currentProvider].feeds;
   for (let cat of selectedCategories) {
     const url = feeds[cat];
     if (url) {
       const section = await createSection(cat, url);
-      widget.appendChild(section); // Append the feed sections
+      widget.appendChild(section);
     }
   }
 
-  // Add category selection checkboxes below the feeds
   widget.appendChild(createCategoryCheckboxes());
 }
 
-renderWidget(); // Initial render
+renderWidget();

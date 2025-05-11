@@ -1,5 +1,9 @@
 html, body {
     height: 100%;
+    margin: 0;
+    padding: 0;
+    height: 100vh;       /* Full viewport height */
+    overflow: hidden;   /* Prevent scrolling */
 }
 
 main {
@@ -42,6 +46,10 @@ main {
 .WidgetsArea {
     display: flex;
     flex: 1;
+}
+
+.widget-block {
+  display: none; /* default hidden until JS toggles */
 }
 
 .WidgetColumn1,

@@ -1,4 +1,4 @@
-#rss-widget {
+#news-widget-wrapper {
   background-color: var(--bg-dark);
   color: var(--fg-light);
   padding: 20px;
@@ -8,7 +8,7 @@
   max-width: 600px;
 }
 
-#rss-widget select {
+#news-widget-wrapper select {
   width: 100%;
   height: var(--input-height);
   padding: 0 15px;
@@ -20,12 +20,12 @@
   outline: none;
 }
 
-#rss-widget select:focus {
+#news-widget-wrapper select:focus {
   box-shadow: var(--shadow-focus);
 }
 
-#rss-widget a {
-    color:var(--fg-light);
+#news-widget-wrapper a {
+  color: var(--fg-light);
 }
 
 .rss-section {
@@ -72,7 +72,7 @@
 
 .rss-category-selection input[type="checkbox"] {
   margin-right: 10px;
-  accent-color: var(--primary); /* Modern way to style checkboxes */
+  accent-color: var(--primary);
 }
 
 .rss-category-selection input[type="checkbox"]:hover {
