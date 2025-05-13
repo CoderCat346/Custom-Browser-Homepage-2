@@ -3,38 +3,45 @@
 <html lang="en">
     <head>
         <!-- <META> -->
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <meta name="description" content="...">
-            <meta name="referrer" content="no-referrer"> 
+            <meta charset="UTF-8"> <!-- Set character encoding -->
+            <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Responsive design on all devices -->
+            <meta name="description" content="..."> <!-- Short page description for SEO -->
+            <meta name="referrer" content="no-referrer"> <!-- Prevents referrer info from being sent -->
         <!-- </META> -->
 
-        <title>Homepage</title>
+        <title>Homepage</title> <!-- Page title shown in browser tab -->
 
         <!-- <FAVICON> -->
+            <!-- Icons for various devices and resolutions -->
             <link rel="apple-touch-icon" sizes="180x180" href="/assets/Favicon/apple-touch-icon.png">
             <link rel="icon" type="image/png" sizes="32x32" href="/assets/Favicon/favicon-32x32.png">
             <link rel="icon" type="image/png" sizes="16x16" href="/assets/Favicon/favicon-16x16.png">
-            <link rel="manifest" href="/site.webmanifest">
+            <link rel="manifest" href="/site.webmanifest"> <!-- For PWA support -->
         <!-- </FAVICON> -->
 
         <!-- <CSS> -->
+            <!-- Layout and global UI styles -->
             <link rel="stylesheet" href="/css/layout.css" rel="preload" as="style">
             <link rel="stylesheet" href="/css/design/GlobalUI/global.css" rel="preload" as="style">
             <link rel="stylesheet" href="/css/design/GlobalUI/Buttons.css" rel="preload" as="style">
+
+            <!-- Persistent UI elements (always visible) -->
             <link rel="stylesheet" href="/css/design/PersistentUI/SearchBar.css" rel="preload" as="style">
             <link rel="stylesheet" href="/css/design/PersistentUI/HelloUser.css" rel="preload" as="style">
             <link rel="stylesheet" href="/css/design/PersistentUI/Clock.css" rel="preload" as="style">
             <link rel="stylesheet" href="/css/design/PersistentUI/Notes.css" rel="preload" as="style">
+
+            <!-- Conditional UI elements (shown via toggles/settings) -->
             <link rel="stylesheet" href="/css/design/ConditionalUI/Modal.css" rel="preload" as="style">
             <link rel="stylesheet" href="/css/design/ConditionalUI/SlideBar.css" rel="preload" as="style">
             <link rel="stylesheet" href="/css/design/ConditionalUI/Background.css" rel="preload" as="style">
+
+            <!-- Widget styles -->
             <link rel="stylesheet" href="/css/design/ConditionalUI/Widgets/Quran.css" rel="preload" as="style">
             <link rel="stylesheet" href="/css/design/ConditionalUI/Widgets/Weather.css" rel="preload" as="style">
             <link rel="stylesheet" href="/css/design/ConditionalUI/Widgets/RSS.css" rel="preload" as="style">
             <link rel="stylesheet" href="/css/design/ConditionalUI/Widgets/News.css" rel="preload" as="style">
         <!-- </CSS> -->
-        
     </head>
     <body>
         <main>
