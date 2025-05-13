@@ -1,5 +1,7 @@
+// Get the container element for rendering the news widget
 const widget = document.getElementById("news-widget-wrapper");
 
+// Define all supported RSS providers and their respective feed URLs categorized by topic
 const PROVIDERS = {
   bbc: {
     name: "BBC",
@@ -82,12 +84,22 @@ const PROVIDERS = {
   }
 };
 
+// Define all available news categories
 const CATEGORIES = ["world", "sports", "finance", "tech", "education", "environment"];
+
+// Define localStorage keys
 const STORAGE_KEY = "rss-provider";
 const CATEGORIES_KEY = "rss-categories";
+
+// Load current provider and selected categories from localStorage, or use defaults
 let currentProvider = localStorage.getItem(STORAGE_KEY) || "bbc";
 let selectedCategories = JSON.parse(localStorage.getItem(CATEGORIES_KEY)) || [];
 
+/**
+ * Fetch RSS feed data using rss2json proxy API
+ * @param {string} url - RSS feed URL
+ * @returns {Promise<Array>} - Array of RSS items (limited to 5)
+ */
 async function fetchRSS(url) {
   if (!url) return [];
   try {
@@ -95,19 +107,25 @@ async function fetchRSS(url) {
     const res = await fetch(api);
     const data = await res.json();
     if (data.status !== "ok") throw new Error("Invalid RSS");
-    return data.items.slice(0, 5);
+    return data.items.slice(0, 5); // Limit to 5 items
   } catch (err) {
     console.warn("RSS error:", err.message);
     return [];
   }
 }
 
+/**
+ * Create a news section for a given category and feed URL
+ * @param {string} name - Category name
+ * @param {string} url - Feed URL
+ * @returns {Promise<HTMLElement>} - Section element with news items
+ */
 async function createSection(name, url) {
   const section = document.createElement("div");
   section.className = "rss-section";
 
   const heading = document.createElement("h3");
-  heading.textContent = name[0].toUpperCase() + name.slice(1);
+  heading.textContent = name[0].toUpperCase() + name.slice(1); // Capitalize category
   section.appendChild(heading);
 
   const items = await fetchRSS(url);
@@ -122,7 +140,7 @@ async function createSection(name, url) {
     const link = document.createElement("a");
     link.href = item.link;
     link.textContent = item.title;
-    link.target = "_blank";
+    link.target = "_blank"; // Open links in a new tab
     li.appendChild(link);
     list.appendChild(li);
   }
@@ -131,6 +149,10 @@ async function createSection(name, url) {
   return section;
 }
 
+/**
+ * Create category selection checkboxes with change handlers
+ * @returns {HTMLElement} - DOM element containing checkboxes
+ */
 function createCategoryCheckboxes() {
   const categorySection = document.createElement("div");
   categorySection.className = "rss-category-selection";
@@ -142,6 +164,7 @@ function createCategoryCheckboxes() {
     checkbox.value = category;
     checkbox.checked = selectedCategories.includes(category);
 
+    // Update selection and re-render widget on change
     checkbox.onchange = () => {
       if (checkbox.checked) {
         selectedCategories.push(category);
@@ -149,7 +172,7 @@ function createCategoryCheckboxes() {
         selectedCategories = selectedCategories.filter((cat) => cat !== category);
       }
       localStorage.setItem(CATEGORIES_KEY, JSON.stringify(selectedCategories));
-      renderWidget();
+      renderWidget(); // Re-render widget with new selections
     };
 
     label.appendChild(checkbox);
@@ -160,9 +183,13 @@ function createCategoryCheckboxes() {
   return categorySection;
 }
 
+/**
+ * Render the news widget with current provider and selected categories
+ */
 async function renderWidget() {
-  widget.innerHTML = "";
+  widget.innerHTML = ""; // Clear current widget content
 
+  // Create and populate provider selector dropdown
   const select = document.createElement("select");
   for (let key in PROVIDERS) {
     const opt = document.createElement("option");
@@ -171,14 +198,17 @@ async function renderWidget() {
     if (key === currentProvider) opt.selected = true;
     select.appendChild(opt);
   }
+
+  // Handle provider change and re-render
   select.onchange = () => {
     currentProvider = select.value;
     localStorage.setItem(STORAGE_KEY, currentProvider);
-    renderWidget();
+    renderWidget(); // Re-render with new provider
   };
 
   widget.appendChild(select);
 
+  // Get feeds for the current provider and selected categories
   const feeds = PROVIDERS[currentProvider].feeds;
   for (let cat of selectedCategories) {
     const url = feeds[cat];
@@ -188,7 +218,9 @@ async function renderWidget() {
     }
   }
 
+  // Append category selection checkboxes
   widget.appendChild(createCategoryCheckboxes());
 }
 
+// Initial render of the widget
 renderWidget();

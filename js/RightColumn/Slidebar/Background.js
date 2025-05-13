@@ -1,6 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
   
-
 // Toggle background changer UI
 function toggleBackgroundChanger() {
   const wrapper = document.getElementById('backgroundChangerWrapper');
