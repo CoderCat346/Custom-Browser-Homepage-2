@@ -24,9 +24,9 @@
   box-shadow: var(--shadow-focus);
 }
 
-#news-widget-wrapper a {
-  color: var(--fg-light);
-}
+/* #news-widget-wrapper a {
+  color: var(--primary);
+} */
 
 .rss-section {
   margin-bottom: 24px;

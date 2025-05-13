@@ -49,4 +49,6 @@
   --fg-mid: #333333;
 }
 
-  
+a {
+  color: var(--primary);
+}
