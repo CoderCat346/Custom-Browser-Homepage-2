@@ -30,48 +30,47 @@ Custom-Browser-Homepage-2/
 │       ├── Stars.webp
 │       ├── Stocks.webp
 │       └── Study.webp
-├── src/
-│   ├── css/
-│   │   ├── layout.css
-│   │   └── design/
-│   │       ├── ConditionalUI/
-│   │       │   ├── Background.css
-│   │       │   ├── Modal.css
-│   │       │   ├── SlideBar.css
-│   │       │   └── Widgets/
-│   │       │       ├── News.css
-│   │       │       ├── Quran.css
-│   │       │       ├── RSS.css
-│   │       │       └── Weather.css
-│   │       ├── GlobalUI/
-│   │       │   ├── Buttons.css
-│   │       │   └── global.css
-│   │       └── PersistentUI/
-│   │           ├── Clock.css
-│   │           ├── HelloUser.css
-│   │           ├── Notes.css
-│   │           └── SearchBar.css
-│   ├── js/
-│   │   ├── LeftColumn/
-│   │   │   └── Shortcuts.js
-│   │   ├── MainContentArea/
-│   │   │   ├── Non-Togglable/
-│   │   │   │   ├── Clock.js
-│   │   │   │   ├── HelloUser.js
-│   │   │   │   ├── Notes.js
-│   │   │   │   └── SearchBar.js
-│   │   │   └── Togglable/
-│   │   │       ├── News.js
-│   │   │       ├── Quran.js
-│   │   │       ├── RSS.js
-│   │   │       └── Weather.js
-│   │   └── RightColumn/
-│   │       ├── Slidebar/
-│   │       │   ├── Background.js
-│   │       │   ├── SlideBar.js
-│   │       │   ├── WidgetToggle.js
-│   │       │   └── layoutChanger.js
-│   │       └── ThemeToggleBtn.js
-│   └── index.html
+├── css/
+│   ├── layout.css
+│   └── design/
+│       ├── ConditionalUI/
+│       │   ├── Background.css
+│       │   ├── Modal.css
+│       │   ├── SlideBar.css
+│       │   └── Widgets/
+│       │       ├── News.css
+│       │       ├── Quran.css
+│       │       ├── RSS.css
+│       │       └── Weather.css
+│       ├── GlobalUI/
+│       │   ├── Buttons.css
+│       │   └── global.css
+│       └── PersistentUI/
+│           ├── Clock.css
+│           ├── HelloUser.css
+│           ├── Notes.css
+│           └── SearchBar.css
+├── js/
+│   ├── LeftColumn/
+│   │   └── Shortcuts.js
+│   ├── MainContentArea/
+│   │   ├── Non-Togglable/
+│   │   │   ├── Clock.js
+│   │   │   ├── HelloUser.js
+│   │   │   ├── Notes.js
+│   │   │   └── SearchBar.js
+│   │   └── Togglable/
+│   │       ├── News.js
+│   │       ├── Quran.js
+│   │       ├── RSS.js
+│   │       └── Weather.js
+│   └── RightColumn/
+│       ├── Slidebar/
+│       │   ├── Background.js
+│       │   ├── SlideBar.js
+│       │   ├── WidgetToggle.js
+│       │   └── layoutChanger.js
+│       └── ThemeToggleBtn.js
+├── index.html
 ├── README.md
 └── STRUCTURE.md
