@@ -8,20 +8,20 @@ function toggleBackgroundChanger() {
 
 // Image options
 const imageOptions = [
-  { label: 'Horizon', url: '/assets/images/Horizon.webp' },
-  { label: 'Mountain', url: '/assets/images/Mountain.webp' },
-  { label: 'Mountain 2', url: '/assets/images/Mountain_2.webp' },
-  { label: 'Mountain 3', url: '/assets/images/Mountain_3.webp' },
-  { label: 'Stars', url: '/assets/images/Stars.webp' },
-  { label: 'Dessert', url: '/assets/images/Dessert.webp' },
-  { label: 'Shore', url: '/assets/images/Shore.webp' },
-  { label: 'Shore 2', url: '/assets/images/Shore_2.webp' },
-  { label: 'Astronomy', url: '/assets/images/Astronomy.webp' },
-  { label: 'Scenery', url: '/assets/images/Scenery.webp' },
-  { label: 'Clouds', url: '/assets/images/Clouds.webp' },
-  { label: 'Shapes', url: '/assets/images/Shapes.webp' },
-  { label: 'Stocks', url: '/assets/images/Stocks.webp' },
-  { label: 'Study', url: '/assets/images/Study.webp' },
+  { label: 'Horizon', url: 'assets/images/Horizon.webp' },
+  { label: 'Mountain', url: 'assets/images/Mountain.webp' },
+  { label: 'Mountain 2', url: 'assets/images/Mountain_2.webp' },
+  { label: 'Mountain 3', url: 'assets/images/Mountain_3.webp' },
+  { label: 'Stars', url: 'assets/images/Stars.webp' },
+  { label: 'Dessert', url: 'assets/images/Dessert.webp' },
+  { label: 'Shore', url: 'assets/images/Shore.webp' },
+  { label: 'Shore 2', url: 'assets/images/Shore_2.webp' },
+  { label: 'Astronomy', url: 'assets/images/Astronomy.webp' },
+  { label: 'Scenery', url: 'assets/images/Scenery.webp' },
+  { label: 'Clouds', url: 'assets/images/Clouds.webp' },
+  { label: 'Shapes', url: 'assets/images/Shapes.webp' },
+  { label: 'Stocks', url: 'assets/images/Stocks.webp' },
+  { label: 'Study', url: 'assets/images/Study.webp' },
 ];
 // Big thanks to https://github.com/faizanusmani20
 
