@@ -53,7 +53,7 @@
 
 .ShortcutBtn.dragging {
   opacity: 0.5;
-  border: 1px dashed var(--primary);
+  border: 3px dashed var(--primary);
 }
 
 /* Confirm delete gets red border when visible */
