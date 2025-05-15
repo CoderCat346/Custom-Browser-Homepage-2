@@ -9,7 +9,7 @@
             <meta name="referrer" content="no-referrer"> <!-- Prevents referrer info from being sent -->
         <!-- </META> -->
 
-        <title>Homepage</title> <!-- Page title shown in browser tab -->
+        <title>Home346</title> <!-- Page title shown in browser tab -->
 
         <!-- <FAVICON> -->
             <!-- Icons for various devices and resolutions -->
@@ -146,51 +146,42 @@
             </div>
 
             <div id="SettingsSidebar" class="slidebar">
-                <h2>⚙️ Settings</h2>
-                <div class="widget-toggle-section">
-                    <h3>🧩 Select Widgets (max 2)</h3>
-                    <label><input type="checkbox" class="widget-toggle" value="Quran"> Quran</label><br>
-                    <label><input type="checkbox" class="widget-toggle" value="Weather"> Weather</label><br>
-                    <label><input type="checkbox" class="widget-toggle" value="RSS"> RSS</label><br>
-                    <label><input type="checkbox" class="widget-toggle" value="News"> News</label><br>
-                    <small id="widgetLimitWarning" style="color: red; display: none;">Max 2 widgets allowed.</small>
-                </div>
-                <div class="LayoutChng">
-                    <label for="layoutRatio">🧭 Adjust Layout (Left vs Right)</label>
-                    <input type="range" id="layoutRatio" min="30" max="90" value="75">
-                    <br>
-                    <small><span id="leftPercent">75</span>% Left / <span id="rightPercent">25</span>% Right</small>
-                </div>
-                <div class="background-changer">
-                    <h3 class="background-changer-title">Change Background</h3>
-                    <!-- Select between background color or image -->
-                    <label class="background-changer-option">
-                        <input type="radio" name="bgType" value="color" checked onchange="renderOptions(this.value)">
-                        Background Color
-                    </label>
-                    <label class="background-changer-option">
-                        <input type="radio" name="bgType" value="image" onchange="renderOptions(this.value)">
-                        Background Image
-                    </label>
+                <h2 class="sidebar-title">⚙️ Settings</h2>
 
-                    <!-- Options (like color pickers or image selectors) injected here -->
+                <section class="sidebar-card">
+                    <h3>🧩 Select Widgets (max 2)</h3>
+                    <div class="widget-options">
+                    <label><input type="checkbox" class="widget-toggle" value="Quran"> Quran</label>
+                    <label><input type="checkbox" class="widget-toggle" value="Weather"> Weather</label>
+                    <label><input type="checkbox" class="widget-toggle" value="RSS"> RSS</label>
+                    <label><input type="checkbox" class="widget-toggle" value="News"> News</label>
+                    </div>
+                    <small id="widgetLimitWarning" class="warning-text">Max 2 widgets allowed.</small>
+                </section>
+
+                <section class="sidebar-card">
+                    <h3>🧭 Adjust Layout</h3>
+                    <label for="layoutRatio">Left vs Right Ratio</label>
+                    <input type="range" id="layoutRatio" min="30" max="90" value="75">
+                    <small><span id="leftPercent">75</span>% Left / <span id="rightPercent">25</span>% Right</small>
+                </section>
+
+                <section class="sidebar-card">
+                    <h3>🎨 Change Background</h3>
+                    <div class="bg-options">
+                    <label><input type="radio" name="bgType" value="color" checked onchange="renderOptions(this.value)"> Color</label>
+                    <label><input type="radio" name="bgType" value="image" onchange="renderOptions(this.value)"> Image</label>
+                    </div>
                     <div id="optionsContainer" class="options-container"></div>
-                </div>
-                <div class="AuthorNote">
-                    <p>A Custom-Browser-Homepage catering to both performance and privacy.</p>
-                    <br>
+                </section>
+
+                <section class="sidebar-card author-note">
+                    <p>A Custom-Browser-Homepage focused on performance and privacy.</p>
                     <p>Made by <a href="https://github.com/CoderCat346">CoderCat346</a></p>
-                    <br>
-                    <p>
-                    It is recommended to use 
-                    <a href="https://brave.com/">Brave</a> or 
-                    <a href="https://duckduckgo.com/">DuckDuckGo</a> as Web Browser to avoid site hosting service side tracking.
-                    If you are using 
-                    <a href="https://www.mozilla.org/en-US/firefox/new/">Firefox</a> or its Fork, then use 
-                    <a href="https://addons.mozilla.org/en-US/firefox/addon/ublock-origin/">uBlock Origin</a>
-                    </p>
-                </div>
-            </div> 
+                    <p>Use <a href="https://brave.com/">Brave</a>, <a href="https://duckduckgo.com/">DuckDuckGo</a> or <a href="https://www.mozilla.org/en-US/firefox/new/">Firefox</a> with <a href="https://addons.mozilla.org/en-US/firefox/addon/ublock-origin/">uBlock Origin</a> for enhanced privacy.</p>
+                </section>
+            </div>
+ 
         </section>    
 
         <!-- <JavaScript> -->
