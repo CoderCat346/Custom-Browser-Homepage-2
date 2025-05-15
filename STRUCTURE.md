@@ -51,6 +51,8 @@ Custom-Browser-Homepage-2/
 │           ├── Notes.css
 │           └── SearchBar.css
 ├── js/
+│   ├── Global/
+│   │   └── ToolTip.js
 │   ├── LeftColumn/
 │   │   └── Shortcuts.js
 │   ├── MainContentArea/
