@@ -72,7 +72,8 @@ Custom-Browser-Homepage-2/
 │           │   ├── Background.js
 │           │   ├── SlideBar.js
 │           │   ├── WidgetToggle.js
-│           │   └── layoutChanger.js
+│           │   ├── layoutChanger.js
+│           │   └── ClearLocalStorage.js  
 │           └── ThemeToggleBtn.js
 ├── index.html
 ├── README.md

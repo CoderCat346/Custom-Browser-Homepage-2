@@ -66,3 +66,16 @@
   padding: 0 12px;
   white-space: nowrap;
 }
+
+#clearStorageBtn {
+    background-color: rgb(222, 72, 72);
+    color: var(--fg-light);
+    border: none;
+    border-radius: var(--radius-sm);
+    padding: 8px 16px;
+    cursor: pointer;
+}
+
+#clearStorageBtn:hover {
+    filter: brightness(1.2);
+}
