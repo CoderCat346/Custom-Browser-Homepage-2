@@ -17,6 +17,14 @@ document.addEventListener("DOMContentLoaded", function () {
       const widget = document.getElementById(widgetId);
       if (widget) {
         widget.style.display = cb.checked ? "block" : "none";
+
+        // 🟢 If Quran widget is turned ON and not already loaded, load its content
+        if (cb.checked && cb.value === "Quran" && widget.dataset.loaded !== "true") {
+          if (typeof loadQuranWidget === "function") {
+            loadQuranWidget();
+            widget.dataset.loaded = "true"; // Avoid duplicate API calls
+          }
+        }
       }
     });
 
