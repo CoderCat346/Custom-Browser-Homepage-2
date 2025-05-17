@@ -73,8 +73,8 @@ document.addEventListener("DOMContentLoaded", () => {
     shortcut.dataset.url = url;
 
     const img = document.createElement("img");
-    img.src = `https://icons.duckduckgo.com/ip3/${domain}.ico`;
-    img.alt = domain;
+    img.src = `https://backendcbh2.onrender.com/favicon?url=${encodeURIComponent(url)}`;
+    img.alt = "favicon";
     img.style.width = "24px";
     img.style.height = "24px";
 

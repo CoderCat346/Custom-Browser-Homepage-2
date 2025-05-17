@@ -103,16 +103,20 @@ let selectedCategories = JSON.parse(localStorage.getItem(CATEGORIES_KEY)) || [];
 async function fetchRSS(url) {
   if (!url) return [];
   try {
-    const api = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(url)}`;
+    // Change this to your backend endpoint:
+    const api = `https://backendcbh2.onrender.com/api/rss?url=${encodeURIComponent(url)}`;
+
     const res = await fetch(api);
     const data = await res.json();
+
     if (data.status !== "ok") throw new Error("Invalid RSS");
-    return data.items.slice(0, 5); // Limit to 5 items
+    return data.items; // Already limited to 5 in backend
   } catch (err) {
     console.warn("RSS error:", err.message);
     return [];
   }
 }
+
 
 /**
  * Create a news section for a given category and feed URL

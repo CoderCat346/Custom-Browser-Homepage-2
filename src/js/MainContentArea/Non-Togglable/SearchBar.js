@@ -1,16 +1,18 @@
 document.addEventListener('DOMContentLoaded', () => {
+  const FAVICON_PROXY = 'https://backendcbh2.onrender.com/favicon?url=';
+
   const engines = {
     brave: {
       url: 'https://search.brave.com/search?q=',
-      icon: 'https://icons.duckduckgo.com/ip3/brave.com.ico'
+      icon: FAVICON_PROXY + 'https://brave.com'
     },
     duckduckgo: {
       url: 'https://duckduckgo.com/?q=',
-      icon: 'https://icons.duckduckgo.com/ip3/duckduckgo.com.ico'
+      icon: FAVICON_PROXY + 'https://duckduckgo.com'
     },
     startpage: {
       url: 'https://www.startpage.com/sp/search?q=',
-      icon: 'https://icons.duckduckgo.com/ip3/startpage.com.ico'
+      icon: FAVICON_PROXY + 'https://startpage.com'
     }
   };
   
