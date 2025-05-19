@@ -91,21 +91,11 @@
                             </div>
                         </section>
                         <section id="weather-widget-wrapper" class="widget-block">
-                            <!-- <h2>🌤️ My Weather Widgets</h2> -->
-                            <div id="widgetContainer"></div>
-                            <!-- Displays added AQI widgets -->
-        
-                            <button id="toggleBtn">Show Widget Creator</button>
-                            <!-- Reveals the input form -->
-        
-                            <div id="widgetCreator" style="display: none;">
-                                <div class="widget-actions">
-                                    <button onclick="window.open('https://www.aqi.in/aqi-widget', '_blank')">Create Widget on AQI.in</button>
-                                </div>
-        
-                                <label for="widgetInput"><strong>Paste your AQI widget code here:</strong></label><br>
-                                <textarea id="widgetInput" placeholder="Paste widget code from aqi.in..."></textarea><br>
-                                <button id="saveBtn">Add Widget</button>
+                            <div class="weather-widget">
+                                <h2>Weather Checker</h2>
+                                <input type="text" id="city-input" placeholder="Enter city..." />
+                                <button id="get-weather">Get Weather</button>
+                                <div id="weather-result"></div>
                             </div>
                         </section>
                         <section id="rss-widget-wrapper" class="widget-block">
