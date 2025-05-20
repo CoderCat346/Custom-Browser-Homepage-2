@@ -1,4 +1,4 @@
-const BACKEND_URL = 'http://localhost:4000'; // <-- change to your backend URL if deployed
+const BACKEND_URL = 'https://backendcbh2.onrender.com'; // <-- change to your backend URL if deployed
 const CACHE_DURATION_MS = 60 * 60 * 1000; // 1 hour
 
 const cityInput = document.getElementById('city-input');
