@@ -7,6 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
     ConfirmDeleteBtn: "Confirm Delete",
     SettingsBtn: "Settings",
     ThemeToggleBtn: "Toggle Theme",
+    BackendToggle: "Toggle Backend"
     // Add more mappings here as needed
   };
 
