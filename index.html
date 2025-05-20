@@ -32,10 +32,9 @@
             <link rel="stylesheet" href="src/css/design/PersistentUI/Notes.css" rel="preload" as="style">
 
             <!-- Conditional UI elements (shown via toggles/settings) -->
-            <link rel="stylesheet" href="src/css/design/ConditionalUI/Modal.css" rel="preload" as="style">
+            <link rel="stylesheet" href="src/css/design/ConditionalUI/ShortcutModal.css" rel="preload" as="style">
             <link rel="stylesheet" href="src/css/design/ConditionalUI/SlideBar.css" rel="preload" as="style">
             <link rel="stylesheet" href="src/css/design/ConditionalUI/Background.css" rel="preload" as="style">
-
             <!-- Widget styles -->
             <link rel="stylesheet" href="src/css/design/ConditionalUI/Widgets/Quran.css" rel="preload" as="style">
             <link rel="stylesheet" href="src/css/design/ConditionalUI/Widgets/Weather.css" rel="preload" as="style">
@@ -175,10 +174,52 @@
                     <p>Use <a href="https://brave.com/">Brave</a>, <a href="https://duckduckgo.com/">DuckDuckGo</a> or <a href="https://www.mozilla.org/en-US/firefox/new/">Firefox</a> with <a href="https://addons.mozilla.org/en-US/firefox/addon/ublock-origin/">uBlock Origin</a> for enhanced privacy.</p>
                 </section>
             </div>
- 
+
+            <div id="backendModal" class="modal">
+                <div class="modal-content">
+                    <span class="CloseBtn" title="Close Modal">&times;</span>
+                    <h3>Choose Backend Mode</h3>
+                    <p style="color: var(--fg-mid); font-size: 0.9em;">
+                    This setting controls how your device connects to external services like weather or news.
+                    Choose an option based on your privacy preferences:
+                    </p>
+
+                    <form id="backendChoiceForm">
+                    <label style="display: block; margin-top: 10px;">
+                        <input type="radio" name="backend" value="direct" />
+                        <strong>Direct (No Proxy)</strong><br />
+                        <span style="font-size: 0.85em; color: var(--fg-mid);">
+                        Connects directly to third-party services. May expose your IP address to external servers.
+                        </span>
+                    </label>
+
+                    <label style="display: block; margin-top: 10px;">
+                        <input type="radio" name="backend" value="default" />
+                        <strong>Use Default Backend</strong><br />
+                        <span style="font-size: 0.85em; color: var(--fg-mid);">
+                        Routes your requests through our server for better privacy. Your IP won't be shared with external APIs.
+                        </span>
+                    </label>
+
+                    <label style="display: block; margin-top: 10px;">
+                        <input type="radio" name="backend" value="custom" />
+                        <strong>Custom Backend</strong><br />
+                        <input type="url" id="customBackendInput" placeholder="https://your-proxy.com" style="margin-top: 4px;" />
+                        <span style="font-size: 0.85em; color: var(--fg-mid); display: block; margin-top: 2px;">
+                        Use a backend of your choice. Useful for advanced users or self-hosted setups.
+                        </span>
+                    </label>
+
+                    <button type="submit" style="margin-top: 15px;">Save</button>
+                    </form>
+                </div>
+            </div>
+
+
         </section>    
 
         <!-- <JavaScript> -->
+            <script src="src/js/Global/ApiRouter.js"></script>
             <script src="src/js/MainContentArea/Non-Togglable/SearchBar.js"></script>
             <script src="src/js/LeftColumn/Shortcuts.js"></script>
             <script src="src/js/MainContentArea/Non-Togglable/HelloUser.js"></script>
@@ -195,6 +236,7 @@
             <script src="src/js/RightColumn/Slidebar/WidgetToggle.js"></script>
             <script src="src/js/Global/ToolTip.js" defer></script>
             <script src="src/js/RightColumn/Slidebar/ClearLocalStorage.js"></script>
+            <script src="src/js/RightColumn/BackendToggleBtn.js" defer></script>
         <!-- </JavaScript> -->
 
     </body>
