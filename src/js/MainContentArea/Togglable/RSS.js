@@ -69,29 +69,43 @@ function renderRSSWidget(feedUrl) {
   wrapper.appendChild(removeBtn);
   rssContainer.appendChild(wrapper);
 
-  // Fetch and display feed content
-  // Replace feedUrl with your own backend endpoint call
-const apiUrl = `https://backendcbh2.onrender.com/api/rss?url=${encodeURIComponent(feedUrl)}`;
+  // Compose API URL depending on backend toggle
+  const apiBase = ApiRouter.getApiBase("api/rss");
+  let apiUrl;
+  if (apiBase) {
+    // Use your backend proxy mode
+    apiUrl = `${apiBase}?url=${encodeURIComponent(feedUrl)}`;
+  } else {
+    // Direct mode: fallback to public rss2json proxy or any other free RSS to JSON service
+    apiUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(feedUrl)}`;
+  }
 
-fetch(apiUrl)
-  .then(res => res.json())
-  .then(data => {
-    if (data.status === 'ok' && data.items) {
-      const items = data.items;
-      list.innerHTML = items.map(item =>
-        `<li>
-          <a href="${item.link}" target="_blank" rel="noopener noreferrer">${item.title}</a>
-          <small>${new Date(item.pubDate).toLocaleString()}</small>
-        </li>`
-      ).join('');
-    } else {
+  fetch(apiUrl)
+    .then(res => res.json())
+    .then(data => {
+      if (data.status === 'ok' && data.items) {
+        const items = data.items;
+        list.innerHTML = items.map(item =>
+          `<li>
+            <a href="${item.link}" target="_blank" rel="noopener noreferrer">${item.title}</a>
+            <small>${new Date(item.pubDate).toLocaleString()}</small>
+          </li>`
+        ).join('');
+      } else {
+        list.innerHTML = `<li style="color:red">⚠️ Failed to load feed.</li>`;
+        console.error('RSS backend error:', data.error || 'Unknown error');
+      }
+    })
+    .catch(err => {
       list.innerHTML = `<li style="color:red">⚠️ Failed to load feed.</li>`;
-      console.error('RSS backend error:', data.error || 'Unknown error');
-    }
-  })
-  .catch(err => {
-    list.innerHTML = `<li style="color:red">⚠️ Failed to load feed.</li>`;
-    console.error('Fetch error:', err);
-  });
-
+      console.error('Fetch error:', err);
+    });
 }
+
+// Re-render RSS widgets when backend routing changes
+ApiRouter.onBackendChange(() => {
+  // Clear container and reload stored feeds
+  rssContainer.innerHTML = '';
+  const storedFeeds = JSON.parse(localStorage.getItem('rss_feeds') || '[]');
+  storedFeeds.forEach(feedUrl => renderRSSWidget(feedUrl));
+});
