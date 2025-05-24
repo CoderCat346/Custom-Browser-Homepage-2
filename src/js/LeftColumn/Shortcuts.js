@@ -72,11 +72,31 @@ document.addEventListener("DOMContentLoaded", () => {
     shortcut.draggable = true;
     shortcut.dataset.url = url;
 
-    const img = document.createElement("img");
-    img.src = `https://backendcbh2.onrender.com/favicon?url=${encodeURIComponent(url)}`;
-    img.alt = "favicon";
-    img.style.width = "24px";
-    img.style.height = "24px";
+    // Assume ApiRouter is globally available and working like in your other widgets
+function getFaviconUrl(siteUrl) {
+  const base = ApiRouter.getApiBase("favicon"); // returns something like https://backend.com/favicon or null if direct mode
+  if (base) {
+    // Use backend proxy
+    return `${base}?url=${encodeURIComponent(siteUrl)}`;
+  } else {
+    // Directly use DuckDuckGo favicon service in direct mode
+    try {
+      const domain = new URL(siteUrl).hostname.replace(/^www\./, '');
+      return `https://icons.duckduckgo.com/ip3/${domain}.ico`;
+    } catch {
+      // fallback to siteUrl as is if invalid URL
+      return siteUrl;
+    }
+  }
+}
+
+// Usage example:
+const img = document.createElement("img");
+img.src = getFaviconUrl(url);
+img.alt = "favicon";
+img.style.width = "24px";
+img.style.height = "24px";
+
 
     shortcut.appendChild(img);
 
