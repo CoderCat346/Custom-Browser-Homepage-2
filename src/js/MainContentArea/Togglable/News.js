@@ -1,7 +1,8 @@
-// Get the container element for rendering the news widget
+// news.js
+
 const widget = document.getElementById("news-widget-wrapper");
 
-// Define all supported RSS providers and their respective feed URLs categorized by topic
+// All RSS providers and their feeds by category
 const PROVIDERS = {
   bbc: {
     name: "BBC",
@@ -84,147 +85,158 @@ const PROVIDERS = {
   }
 };
 
-// Define all available news categories
 const CATEGORIES = ["world", "sports", "finance", "tech", "education", "environment"];
 
-// Define localStorage keys
-const STORAGE_KEY = "rss-provider";
-const CATEGORIES_KEY = "rss-categories";
+const STORAGE_PROVIDER = "rss-provider";
+const STORAGE_CATEGORIES = "rss-categories";
 
-// Load current provider and selected categories from localStorage, or use defaults
-let currentProvider = localStorage.getItem(STORAGE_KEY) || "bbc";
-let selectedCategories = JSON.parse(localStorage.getItem(CATEGORIES_KEY)) || [];
+// Load user choices or defaults
+let currentProvider = localStorage.getItem(STORAGE_PROVIDER) || "bbc";
+let selectedCategories = JSON.parse(localStorage.getItem(STORAGE_CATEGORIES)) || CATEGORIES.slice(0, 3);
 
-/**
- * Fetch RSS feed data using rss2json proxy API
- * @param {string} url - RSS feed URL
- * @returns {Promise<Array>} - Array of RSS items (limited to 5)
- */
-async function fetchRSS(url) {
-  if (!url) return [];
+// Helper to build the RSS fetch URL based on ApiRouter preference and feed URL
+function getEndpointURL(feedUrl) {
+  const apiBase = ApiRouter.getApiBase("api/rss");
+  if (!apiBase) {
+    // direct mode: use public rss2json proxy
+    return `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(feedUrl)}`;
+  }
+  // backend proxy mode (default or custom)
+  return `${apiBase}?url=${encodeURIComponent(feedUrl)}`;
+}
+
+// Cache fetch with TTL in minutes
+async function fetchRSSWithCache(feedUrl, cacheKey, ttlMinutes = 10) {
+  const now = Date.now();
+  const cached = localStorage.getItem(cacheKey);
+
+  if (cached) {
+    try {
+      const parsed = JSON.parse(cached);
+      if (now - parsed.timestamp < ttlMinutes * 60 * 1000) {
+        return parsed.items;
+      }
+    } catch {
+      localStorage.removeItem(cacheKey);
+    }
+  }
+
   try {
-    // Change this to your backend endpoint:
-    const api = `https://backendcbh2.onrender.com/api/rss?url=${encodeURIComponent(url)}`;
-
-    const res = await fetch(api);
+    const endpoint = getEndpointURL(feedUrl);
+    const res = await fetch(endpoint);
     const data = await res.json();
 
-    if (data.status !== "ok") throw new Error("Invalid RSS");
-    return data.items; // Already limited to 5 in backend
+    if (data.status !== "ok" || !data.items) throw new Error("Invalid RSS feed");
+
+    localStorage.setItem(cacheKey, JSON.stringify({ timestamp: now, items: data.items }));
+    return data.items;
   } catch (err) {
-    console.warn("RSS error:", err.message);
+    console.warn("RSS fetch failed:", err.message);
     return [];
   }
 }
 
-
-/**
- * Create a news section for a given category and feed URL
- * @param {string} name - Category name
- * @param {string} url - Feed URL
- * @returns {Promise<HTMLElement>} - Section element with news items
- */
-async function createSection(name, url) {
+// Create section for one category feed
+async function createSection(category, feedUrl) {
   const section = document.createElement("div");
   section.className = "rss-section";
 
   const heading = document.createElement("h3");
-  heading.textContent = name[0].toUpperCase() + name.slice(1); // Capitalize category
+  heading.textContent = category.charAt(0).toUpperCase() + category.slice(1);
   section.appendChild(heading);
 
-  const items = await fetchRSS(url);
-  if (items.length === 0) {
+  const cacheKey = `rss-cache-${currentProvider}-${category}`;
+  const items = await fetchRSSWithCache(feedUrl, cacheKey);
+
+  if (!items || items.length === 0) {
     section.innerHTML += `<p>No items available.</p>`;
     return section;
   }
 
   const list = document.createElement("ul");
-  for (let item of items) {
+  for (let item of items.slice(0, 5)) {
     const li = document.createElement("li");
     const link = document.createElement("a");
     link.href = item.link;
     link.textContent = item.title;
-    link.target = "_blank"; // Open links in a new tab
+    link.target = "_blank";
     li.appendChild(link);
     list.appendChild(li);
   }
-
   section.appendChild(list);
   return section;
 }
 
-/**
- * Create category selection checkboxes with change handlers
- * @returns {HTMLElement} - DOM element containing checkboxes
- */
+// Create category checkbox selectors UI
 function createCategoryCheckboxes() {
-  const categorySection = document.createElement("div");
-  categorySection.className = "rss-category-selection";
+  const wrapper = document.createElement("div");
+  wrapper.className = "rss-category-selection";
 
-  CATEGORIES.forEach((category) => {
+  CATEGORIES.forEach(cat => {
     const label = document.createElement("label");
     const checkbox = document.createElement("input");
     checkbox.type = "checkbox";
-    checkbox.value = category;
-    checkbox.checked = selectedCategories.includes(category);
+    checkbox.value = cat;
+    checkbox.checked = selectedCategories.includes(cat);
 
-    // Update selection and re-render widget on change
     checkbox.onchange = () => {
       if (checkbox.checked) {
-        selectedCategories.push(category);
+        selectedCategories.push(cat);
       } else {
-        selectedCategories = selectedCategories.filter((cat) => cat !== category);
+        selectedCategories = selectedCategories.filter(c => c !== cat);
       }
-      localStorage.setItem(CATEGORIES_KEY, JSON.stringify(selectedCategories));
-      renderWidget(); // Re-render widget with new selections
+      localStorage.setItem(STORAGE_CATEGORIES, JSON.stringify(selectedCategories));
+      renderWidget();
     };
 
     label.appendChild(checkbox);
-    label.appendChild(document.createTextNode(category.charAt(0).toUpperCase() + category.slice(1)));
-    categorySection.appendChild(label);
+    label.appendChild(document.createTextNode(cat.charAt(0).toUpperCase() + cat.slice(1)));
+    wrapper.appendChild(label);
   });
 
-  return categorySection;
+  return wrapper;
 }
 
-/**
- * Render the news widget with current provider and selected categories
- */
+// Main render function
 async function renderWidget() {
-  widget.innerHTML = ""; // Clear current widget content
+  if (!widget) return;
 
-  // Create and populate provider selector dropdown
-  const select = document.createElement("select");
-  for (let key in PROVIDERS) {
-    const opt = document.createElement("option");
-    opt.value = key;
-    opt.textContent = PROVIDERS[key].name;
-    if (key === currentProvider) opt.selected = true;
-    select.appendChild(opt);
+  widget.innerHTML = "";
+
+  // Provider dropdown
+  const providerSelect = document.createElement("select");
+  for (const key in PROVIDERS) {
+    const option = document.createElement("option");
+    option.value = key;
+    option.textContent = PROVIDERS[key].name;
+    if (key === currentProvider) option.selected = true;
+    providerSelect.appendChild(option);
   }
-
-  // Handle provider change and re-render
-  select.onchange = () => {
-    currentProvider = select.value;
-    localStorage.setItem(STORAGE_KEY, currentProvider);
-    renderWidget(); // Re-render with new provider
+  providerSelect.onchange = () => {
+    currentProvider = providerSelect.value;
+    localStorage.setItem(STORAGE_PROVIDER, currentProvider);
+    renderWidget();
   };
+  widget.appendChild(providerSelect);
 
-  widget.appendChild(select);
-
-  // Get feeds for the current provider and selected categories
+  // Render sections for selected categories
   const feeds = PROVIDERS[currentProvider].feeds;
-  for (let cat of selectedCategories) {
-    const url = feeds[cat];
-    if (url) {
-      const section = await createSection(cat, url);
+  for (const category of selectedCategories) {
+    const feedUrl = feeds[category];
+    if (feedUrl) {
+      const section = await createSection(category, feedUrl);
       widget.appendChild(section);
     }
   }
 
-  // Append category selection checkboxes
+  // Append category selectors
   widget.appendChild(createCategoryCheckboxes());
 }
 
-// Initial render of the widget
+// Re-render widget when backend routing preference changes
+ApiRouter.onBackendChange(() => {
+  renderWidget();
+});
+
+// Initial widget render
 renderWidget();
