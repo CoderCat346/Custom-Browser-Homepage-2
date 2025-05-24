@@ -1,18 +1,43 @@
-const BACKEND_URL = 'https://backendcbh2.onrender.com'; // <-- change to your backend URL if deployed
-const CACHE_DURATION_MS = 60 * 60 * 1000; // 1 hour
+const OPENWEATHER_API_KEY = 'd47f5ca5b91bf63f8b3abf8acdc13dcd';
+const CACHE_DURATION_MS = 60 * 60 * 1000;
 
 const cityInput = document.getElementById('city-input');
 const resultDiv = document.getElementById('weather-result');
 
-// Unified weather fetch function
+// Function to determine which API to call based on backend toggle
 async function fetchWeather(city) {
   resultDiv.textContent = 'Loading...';
 
-  try {
-    const res = await fetch(`${BACKEND_URL}/api/weather?city=${encodeURIComponent(city)}`);
-    const data = await res.json();
+  const backendBase = ApiRouter.getApiBase("api/weather");
+  const cleanCity = city.split(':')[0].trim().toLowerCase();
 
-    if (!res.ok) throw new Error(data.error || 'Failed to fetch weather');
+  if (!cleanCity) {
+    resultDiv.textContent = 'Invalid city name.';
+    return;
+  }
+
+  try {
+    let data;
+
+    if (backendBase) {
+      // Use backend proxy
+      const res = await fetch(`${backendBase}?city=${encodeURIComponent(cleanCity)}`);
+      data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'Failed to fetch weather from backend');
+    } else {
+      // Use direct OpenWeather API
+      const url = `https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(cleanCity)}&appid=${OPENWEATHER_API_KEY}&units=metric`;
+      const res = await fetch(url);
+      if (!res.ok) throw new Error('Failed to fetch weather from OpenWeather');
+      const raw = await res.json();
+
+      data = {
+        city: raw.name,
+        temperature: `${raw.main.temp} °C`,
+        wind: `${raw.wind.speed} m/s`,
+        description: raw.weather[0].description
+      };
+    }
 
     resultDiv.innerHTML = `
       <p><strong>${data.city}</strong></p>
@@ -25,28 +50,32 @@ async function fetchWeather(city) {
   }
 }
 
-// Load saved city on page load
+// Auto-load on page ready
 window.addEventListener('DOMContentLoaded', () => {
   const savedCity = localStorage.getItem('weatherCity');
   if (savedCity) {
     cityInput.value = savedCity;
     fetchWeather(savedCity);
 
-    // OPTIONAL: auto-refresh every hour while the page stays open
     setInterval(() => {
       fetchWeather(savedCity);
     }, CACHE_DURATION_MS);
   }
 });
 
-// Manual "Get Weather" button
-document.getElementById('get-weather').addEventListener('click', async () => {
+// Manual trigger
+document.getElementById('get-weather').addEventListener('click', () => {
   const city = cityInput.value.trim();
   if (!city) {
     resultDiv.textContent = 'Please enter a city name.';
     return;
   }
 
-  localStorage.setItem('weatherCity', city); // Save for auto-load
+  localStorage.setItem('weatherCity', city);
   fetchWeather(city);
+});
+
+ApiRouter.onBackendChange(() => {
+  const city = localStorage.getItem('weatherCity');
+  if (city) fetchWeather(city); // re-fetch weather using updated routing
 });
