@@ -1,21 +1,33 @@
 document.addEventListener('DOMContentLoaded', () => {
-  const FAVICON_PROXY = 'https://backendcbh2.onrender.com/favicon?url=';
+  // Function to get favicon URL respecting backend toggle
+  function getFaviconUrl(siteUrl) {
+    const base = ApiRouter.getApiBase("favicon"); // your global backend toggle helper
+    if (base) {
+      return `${base}?url=${encodeURIComponent(siteUrl)}`;
+    } else {
+      try {
+        const domain = new URL(siteUrl).hostname.replace(/^www\./, '');
+        return `https://icons.duckduckgo.com/ip3/${domain}.ico`;
+      } catch {
+        return siteUrl; // fallback
+      }
+    }
+  }
 
   const engines = {
     brave: {
       url: 'https://search.brave.com/search?q=',
-      icon: FAVICON_PROXY + 'https://brave.com'
+      icon: getFaviconUrl('https://brave.com')
     },
     duckduckgo: {
       url: 'https://duckduckgo.com/?q=',
-      icon: FAVICON_PROXY + 'https://duckduckgo.com'
+      icon: getFaviconUrl('https://duckduckgo.com')
     },
     startpage: {
       url: 'https://www.startpage.com/sp/search?q=',
-      icon: FAVICON_PROXY + 'https://startpage.com'
+      icon: getFaviconUrl('https://startpage.com')
     }
   };
-  
 
   let current = 'brave';
 
@@ -26,12 +38,13 @@ document.addEventListener('DOMContentLoaded', () => {
   const currentIcon = document.getElementById('current-icon');
   const engineList = document.getElementById('engine-list');
 
-  // Populate icons
+  // Populate icons dynamically
   Object.entries(engines).forEach(([key, data]) => {
     const icon = document.createElement('img');
     icon.src = data.icon;
     icon.dataset.engine = key;
     icon.alt = key;
+    icon.style.cursor = 'pointer'; // improve UX
     icon.addEventListener('click', () => {
       current = key;
       currentIcon.src = data.icon;
@@ -40,7 +53,7 @@ document.addEventListener('DOMContentLoaded', () => {
     engineList.appendChild(icon);
   });
 
-  // Set default engine
+  // Set default icon AFTER populating icons
   currentIcon.src = engines[current].icon;
 
   // Submit handler
