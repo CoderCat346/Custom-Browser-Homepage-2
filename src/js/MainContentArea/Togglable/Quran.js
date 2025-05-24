@@ -56,11 +56,14 @@
   }
 
   // Load on start
-  loadQuranWidget();
-
-  // Reload live when user switches API routing method
+    // 🔁 Refresh widget when backend routing mode changes — only if visible
   ApiRouter.onBackendChange(() => {
-    loadQuranWidget();
+    if (widgetEl && widgetEl.style.display !== "none") {
+      loadQuranWidget();
+    }
   });
+
+  // 🌍 Expose to global so WidgetToggle can load it on toggle
+  window.loadQuranWidget = loadQuranWidget;
 
 })();
