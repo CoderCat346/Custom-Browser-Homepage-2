@@ -1,5 +1,7 @@
-  // Make the section editable
-  const editable = document.getElementById("editableText");
+// Make the section editable
+const editable = document.getElementById("editableText") as HTMLElement | null;
+
+if (editable) {
   editable.setAttribute("contenteditable", "true");
 
   // Load saved text from localStorage (if any)
@@ -9,8 +11,11 @@
   }
 
   // Save text on blur (when user clicks outside)
-  editable.addEventListener("blur", function () {
+  editable.addEventListener("blur", function (this: HTMLElement) {
     const updatedText = this.innerText;
     console.log("Saved text:", updatedText); // You can replace this with actual save logic if needed
     localStorage.setItem("userText", updatedText); // Save the updated text to localStorage
   });
+} else {
+  console.warn('Element with id "editableText" not found.');
+}
