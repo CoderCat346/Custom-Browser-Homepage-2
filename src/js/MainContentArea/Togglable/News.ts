@@ -1,9 +1,25 @@
-// news.js
+const widget = document.getElementById("news-widget-wrapper")!; // Assert non-null
 
-const widget = document.getElementById("news-widget-wrapper");
+interface FeedUrls {
+  world?: string;
+  sports?: string;
+  finance?: string;
+  tech?: string;
+  education?: string;
+  environment?: string;
+  [key: string]: string | undefined; // allow indexing with other strings
+}
 
-// All RSS providers and their feeds by category
-const PROVIDERS = {
+interface Provider {
+  name: string;
+  feeds: FeedUrls;
+}
+
+interface Providers {
+  [key: string]: Provider;
+}
+
+const PROVIDERS: Providers = {
   bbc: {
     name: "BBC",
     feeds: {
@@ -85,17 +101,20 @@ const PROVIDERS = {
   }
 };
 
-const CATEGORIES = ["world", "sports", "finance", "tech", "education", "environment"];
+// Categories available
+const CATEGORIES = ["world", "sports", "finance", "tech", "education", "environment"] as const;
+type Category = typeof CATEGORIES[number];
 
+// Local storage keys
 const STORAGE_PROVIDER = "rss-provider";
 const STORAGE_CATEGORIES = "rss-categories";
 
 // Load user choices or defaults
-let currentProvider = localStorage.getItem(STORAGE_PROVIDER) || "bbc";
-let selectedCategories = JSON.parse(localStorage.getItem(STORAGE_CATEGORIES)) || CATEGORIES.slice(0, 3);
+let currentProvider: string = localStorage.getItem(STORAGE_PROVIDER) ?? "bbc";
+let selectedCategories: Category[] = JSON.parse(localStorage.getItem(STORAGE_CATEGORIES) ?? 'null') ?? CATEGORIES.slice(0, 3);
 
 // Helper to build the RSS fetch URL based on ApiRouter preference and feed URL
-function getEndpointURL(feedUrl) {
+function getEndpointURL(feedUrl: string): string {
   const apiBase = ApiRouter.getApiBase("api/rss");
   if (!apiBase) {
     // direct mode: use public rss2json proxy
@@ -106,7 +125,7 @@ function getEndpointURL(feedUrl) {
 }
 
 // Cache fetch with TTL in minutes
-async function fetchRSSWithCache(feedUrl, cacheKey, ttlMinutes = 10) {
+async function fetchRSSWithCache(feedUrl: string, cacheKey: string, ttlMinutes = 10) {
   const now = Date.now();
   const cached = localStorage.getItem(cacheKey);
 
@@ -130,14 +149,14 @@ async function fetchRSSWithCache(feedUrl, cacheKey, ttlMinutes = 10) {
 
     localStorage.setItem(cacheKey, JSON.stringify({ timestamp: now, items: data.items }));
     return data.items;
-  } catch (err) {
+  } catch (err: any) {
     console.warn("RSS fetch failed:", err.message);
     return [];
   }
 }
 
 // Create section for one category feed
-async function createSection(category, feedUrl) {
+async function createSection(category: Category, feedUrl: string): Promise<HTMLElement> {
   const section = document.createElement("div");
   section.className = "rss-section";
 
@@ -154,7 +173,7 @@ async function createSection(category, feedUrl) {
   }
 
   const list = document.createElement("ul");
-  for (let item of items.slice(0, 5)) {
+  for (const item of items.slice(0, 5)) {
     const li = document.createElement("li");
     const link = document.createElement("a");
     link.href = item.link;
@@ -168,7 +187,7 @@ async function createSection(category, feedUrl) {
 }
 
 // Create category checkbox selectors UI
-function createCategoryCheckboxes() {
+function createCategoryCheckboxes(): HTMLElement {
   const wrapper = document.createElement("div");
   wrapper.className = "rss-category-selection";
 
@@ -181,7 +200,7 @@ function createCategoryCheckboxes() {
 
     checkbox.onchange = () => {
       if (checkbox.checked) {
-        selectedCategories.push(cat);
+        if (!selectedCategories.includes(cat)) selectedCategories.push(cat);
       } else {
         selectedCategories = selectedCategories.filter(c => c !== cat);
       }
@@ -206,11 +225,13 @@ async function renderWidget() {
   // Provider dropdown
   const providerSelect = document.createElement("select");
   for (const key in PROVIDERS) {
-    const option = document.createElement("option");
-    option.value = key;
-    option.textContent = PROVIDERS[key].name;
-    if (key === currentProvider) option.selected = true;
-    providerSelect.appendChild(option);
+    if (Object.prototype.hasOwnProperty.call(PROVIDERS, key)) {
+      const option = document.createElement("option");
+      option.value = key;
+      option.textContent = PROVIDERS[key].name;
+      if (key === currentProvider) option.selected = true;
+      providerSelect.appendChild(option);
+    }
   }
   providerSelect.onchange = () => {
     currentProvider = providerSelect.value;
@@ -220,9 +241,14 @@ async function renderWidget() {
   widget.appendChild(providerSelect);
 
   // Render sections for selected categories
-  const feeds = PROVIDERS[currentProvider].feeds;
+  const feeds = PROVIDERS[currentProvider]?.feeds;
+  if (!feeds) {
+    widget.innerHTML += `<p>Selected provider has no feeds.</p>`;
+    return;
+  }
+
   for (const category of selectedCategories) {
-    const feedUrl = feeds[category];
+    const feedUrl = feeds[category as keyof typeof feeds];
     if (feedUrl) {
       const section = await createSection(category, feedUrl);
       widget.appendChild(section);
