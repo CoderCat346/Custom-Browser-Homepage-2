@@ -1,13 +1,14 @@
 {
   "compilerOptions": {
-    "target": "es2017",                       // Output ES2017-compatible JS
-    "module": "esnext",                       // Use modern module system (import/export)
-    "lib": ["es2017", "dom"],                 // Include ES2017 and browser DOM types
-    "rootDir": "./src",                       // Look for TypeScript source code here
-    "outDir": "./dist",                       // Emit compiled JS files here
-    "strict": true,                           // Enable all strict type-checking
-    "esModuleInterop": true,                  // Allow default imports from CommonJS
-    "forceConsistentCasingInFileNames": true, // Avoid import case mismatches
-    "skipLibCheck": true                      // Skip checking types from node_modules
-  }
+    "target": "es2017",                       
+    "module": "esnext",                       
+    "lib": ["es2017", "dom"],                 
+    "rootDir": "./src",                       
+    "outDir": "./dist",                       
+    "strict": true,                           
+    "esModuleInterop": true,                  
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true                      
+  },
+  "include": ["src"]
 }

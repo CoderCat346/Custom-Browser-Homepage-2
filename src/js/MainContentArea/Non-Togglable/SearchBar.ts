@@ -1,7 +1,3 @@
-declare const ApiRouter: {
-  getApiBase: (key: string) => string | null;
-};
-
 document.addEventListener('DOMContentLoaded', () => {
   // Function to get favicon URL respecting backend toggle
   function getFaviconUrl(siteUrl: string): string {
