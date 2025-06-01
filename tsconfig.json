@@ -1,8 +1,8 @@
 {
   "compilerOptions": {
-    "target": "es2016",                       // Output ES2016-compatible JS
+    "target": "es2017",                       // Output ES2017-compatible JS
     "module": "esnext",                       // Use modern module system (import/export)
-    "lib": ["es2016", "dom"],                 // Include ES2016 and browser DOM types
+    "lib": ["es2017", "dom"],                 // Include ES2017 and browser DOM types
     "rootDir": "./src",                       // Look for TypeScript source code here
     "outDir": "./dist",                       // Emit compiled JS files here
     "strict": true,                           // Enable all strict type-checking

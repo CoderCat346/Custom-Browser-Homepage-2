@@ -1,6 +1,10 @@
+declare const ApiRouter: {
+  getApiBase: (key: string) => string | null;
+};
+
 document.addEventListener('DOMContentLoaded', () => {
   // Function to get favicon URL respecting backend toggle
-  function getFaviconUrl(siteUrl) {
+  function getFaviconUrl(siteUrl: string): string {
     const base = ApiRouter.getApiBase("favicon"); // your global backend toggle helper
     if (base) {
       return `${base}?url=${encodeURIComponent(siteUrl)}`;
@@ -14,7 +18,12 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  const engines = {
+  type Engine = {
+    url: string;
+    icon: string;
+  };
+
+  const engines: Record<string, Engine> = {
     brave: {
       url: 'https://search.brave.com/search?q=',
       icon: getFaviconUrl('https://brave.com')
@@ -29,14 +38,16 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   };
 
-  let current = 'brave';
+  let current: string = 'brave';
 
-  const form = document.getElementById('search-form');
-  const input = document.getElementById('search-input');
-  const clearBtn = document.getElementById('clear-button');
-  const selector = document.getElementById('engine-selector');
-  const currentIcon = document.getElementById('current-icon');
-  const engineList = document.getElementById('engine-list');
+  const form = document.getElementById('search-form') as HTMLFormElement | null;
+  const input = document.getElementById('search-input') as HTMLInputElement | null;
+  const clearBtn = document.getElementById('clear-button') as HTMLButtonElement | null;
+  const selector = document.getElementById('engine-selector') as HTMLElement | null;
+  const currentIcon = document.getElementById('current-icon') as HTMLImageElement | null;
+  const engineList = document.getElementById('engine-list') as HTMLElement | null;
+
+  if (!form || !input || !clearBtn || !selector || !currentIcon || !engineList) return;
 
   // Populate icons dynamically
   Object.entries(engines).forEach(([key, data]) => {
@@ -57,7 +68,7 @@ document.addEventListener('DOMContentLoaded', () => {
   currentIcon.src = engines[current].icon;
 
   // Submit handler
-  form.addEventListener('submit', e => {
+  form.addEventListener('submit', (e: Event) => {
     e.preventDefault();
     const query = input.value.trim();
     if (query) {
@@ -72,8 +83,9 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // Expand selector
-  selector.addEventListener('click', e => {
-    if (!e.target.dataset.engine) {
+  selector.addEventListener('click', (e: Event) => {
+    const target = e.target as HTMLElement;
+    if (!target.dataset.engine) {
       selector.classList.toggle('expanded');
     }
   });
