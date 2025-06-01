@@ -1,16 +1,16 @@
 document.addEventListener("DOMContentLoaded", () => {
   // === DOM ELEMENT REFERENCES ===
-  const modal = document.getElementById("addModal");
-  const addBtn = document.querySelector(".AddBtn");
-  const deleteBtn = document.querySelector(".DeleteBtn");
-  const confirmDeleteBtn = document.querySelector(".ConfirmDeleteBtn");
-  const closeBtn = document.querySelector(".CloseBtn");
-  const form = modal.querySelector("form");
-  const shortcutsList = document.querySelector(".ShortcutsList");
+  const modal = document.getElementById("addModal") as HTMLElement;
+  const addBtn = document.querySelector(".AddBtn") as HTMLElement;
+  const deleteBtn = document.querySelector(".DeleteBtn") as HTMLElement;
+  const confirmDeleteBtn = document.querySelector(".ConfirmDeleteBtn") as HTMLElement;
+  const closeBtn = document.querySelector(".CloseBtn") as HTMLElement;
+  const form = modal.querySelector("form") as HTMLFormElement;
+  const shortcutsList = document.querySelector(".ShortcutsList") as HTMLElement;
 
   // === CONSTANTS ===
   const STORAGE_KEY = "shortcuts";
-  const DEFAULT_SHORTCUTS = [
+  const DEFAULT_SHORTCUTS: { url: string }[] = [
     { url: "https://proton.me/" },
     { url: "https://duckduckgo.com/?q=DuckDuckGo+AI+Chat&ia=chat&duckai=1" },
     { url: "https://github.com/CoderCat346" }
@@ -19,14 +19,12 @@ document.addEventListener("DOMContentLoaded", () => {
   // === STATE ===
   let deleteMode = false;
 
-  // Placeholder element to show where dragged item will land
   const placeholder = document.createElement("div");
   placeholder.className = "ShortcutPlaceholder";
 
-  // === LOAD SHORTCUTS FROM STORAGE OR DEFAULT ===
   const loadShortcuts = () => {
     const saved = localStorage.getItem(STORAGE_KEY);
-    let shortcuts;
+    let shortcuts: { url: string }[];
 
     if (saved) {
       try {
@@ -46,22 +44,35 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   };
 
-  // === SAVE CURRENT SHORTCUT LIST TO LOCALSTORAGE ===
   const saveShortcuts = () => {
-    const links = [...shortcutsList.querySelectorAll("a.ShortcutBtn")].map(link => ({
-      url: link.href
+    const links = Array.from(shortcutsList.querySelectorAll("a.ShortcutBtn")).map(link => ({
+      url: (link as HTMLAnchorElement).href
     }));
+
     localStorage.setItem(STORAGE_KEY, JSON.stringify(links));
   };
 
-  // === CREATE AND APPEND A SHORTCUT ELEMENT ===
-  const addShortcutElement = (url) => {
+  const getFaviconUrl = (siteUrl: string): string => {
+    const base = (window as any).ApiRouter?.getApiBase("favicon");
+    if (base) {
+      return `${base}?url=${encodeURIComponent(siteUrl)}`;
+    } else {
+      try {
+        const domain = new URL(siteUrl).hostname.replace(/^www\./, "");
+        return `https://icons.duckduckgo.com/ip3/${domain}.ico`;
+      } catch {
+        return siteUrl;
+      }
+    }
+  };
+
+  const addShortcutElement = (url: string): void => {
     if (!url || !url.startsWith("http")) return;
 
-    let domain;
+    let domain: string;
     try {
       domain = new URL(url).hostname;
-    } catch (e) {
+    } catch {
       return;
     }
 
@@ -72,44 +83,24 @@ document.addEventListener("DOMContentLoaded", () => {
     shortcut.draggable = true;
     shortcut.dataset.url = url;
 
-    // Assume ApiRouter is globally available and working like in your other widgets
-function getFaviconUrl(siteUrl) {
-  const base = ApiRouter.getApiBase("favicon"); // returns something like https://backend.com/favicon or null if direct mode
-  if (base) {
-    // Use backend proxy
-    return `${base}?url=${encodeURIComponent(siteUrl)}`;
-  } else {
-    // Directly use DuckDuckGo favicon service in direct mode
-    try {
-      const domain = new URL(siteUrl).hostname.replace(/^www\./, '');
-      return `https://icons.duckduckgo.com/ip3/${domain}.ico`;
-    } catch {
-      // fallback to siteUrl as is if invalid URL
-      return siteUrl;
-    }
-  }
-}
-
-// Usage example:
-const img = document.createElement("img");
-img.src = getFaviconUrl(url);
-img.alt = "favicon";
-img.style.width = "24px";
-img.style.height = "24px";
-
+    const img = document.createElement("img");
+    img.src = getFaviconUrl(url);
+    img.alt = "favicon";
+    img.style.width = "24px";
+    img.style.height = "24px";
 
     shortcut.appendChild(img);
 
-    // === DELETE MODE CLICK ===
     shortcut.addEventListener("click", (e) => {
       if (!deleteMode) return;
       e.preventDefault();
       shortcut.classList.toggle("SelectedForDelete");
     });
 
-    // === DRAG & DROP EVENTS (DESKTOP) ===
-    shortcut.addEventListener("dragstart", (e) => {
-      e.dataTransfer.setData("text/plain", shortcut.dataset.url);
+    shortcut.addEventListener("dragstart", (e: DragEvent) => {
+      if (e.dataTransfer) {
+        e.dataTransfer.setData("text/plain", shortcut.dataset.url || "");
+      }
       shortcut.classList.add("dragging");
     });
 
@@ -119,19 +110,20 @@ img.style.height = "24px";
     });
 
     shortcut.addEventListener("dragover", (e) => {
-      e.preventDefault(); // Needed to allow drop
+      e.preventDefault();
       const dragging = document.querySelector(".dragging");
       if (dragging && dragging !== shortcut && shortcut.parentNode === shortcutsList) {
         shortcutsList.insertBefore(placeholder, shortcut);
       }
     });
 
-    shortcut.addEventListener("drop", (e) => {
+    shortcut.addEventListener("drop", (e: DragEvent) => {
       e.preventDefault();
-      const draggedUrl = e.dataTransfer.getData("text/plain");
-      const draggedEl = [...shortcutsList.children].find(
-        el => el.dataset.url === draggedUrl
+      const draggedUrl = e.dataTransfer?.getData("text/plain") || "";
+      const draggedEl = Array.from(shortcutsList.children).find(
+        el => (el as HTMLElement).dataset.url === draggedUrl
       );
+
       if (draggedEl && draggedEl !== shortcut) {
         shortcutsList.insertBefore(draggedEl, shortcut);
         saveShortcuts();
@@ -139,15 +131,15 @@ img.style.height = "24px";
       if (placeholder.parentNode) placeholder.remove();
     });
 
-    // === TOUCH SUPPORT (MOBILE DEVICES) ===
+    // Touch support
     let touchStartY = 0;
 
-    shortcut.addEventListener("touchstart", (e) => {
+    shortcut.addEventListener("touchstart", (e: TouchEvent) => {
       shortcut.classList.add("dragging");
       touchStartY = e.touches[0].clientY;
     });
 
-    shortcut.addEventListener("touchmove", (e) => {
+    shortcut.addEventListener("touchmove", (e: TouchEvent) => {
       const touch = e.touches[0];
       const target = document.elementFromPoint(touch.clientX, touch.clientY);
       const dragging = document.querySelector(".dragging");
@@ -156,7 +148,7 @@ img.style.height = "24px";
         shortcutsList.insertBefore(placeholder, target);
       }
 
-      e.preventDefault(); // Prevents scrolling during drag
+      e.preventDefault();
     });
 
     shortcut.addEventListener("touchend", () => {
@@ -169,17 +161,14 @@ img.style.height = "24px";
       if (placeholder.parentNode) placeholder.remove();
     });
 
-    // Add to DOM
     shortcutsList.appendChild(shortcut);
   };
 
-  // === TOGGLE DELETE MODE ===
   deleteBtn.addEventListener("click", () => {
     deleteMode = !deleteMode;
     confirmDeleteBtn.style.display = deleteMode ? "block" : "none";
   });
 
-  // === DELETE CONFIRMED SHORTCUTS ===
   confirmDeleteBtn.addEventListener("click", () => {
     const selected = shortcutsList.querySelectorAll(".SelectedForDelete");
     selected.forEach(el => el.remove());
@@ -188,27 +177,24 @@ img.style.height = "24px";
     deleteMode = false;
   });
 
-  // === OPEN ADD MODAL ===
   addBtn.addEventListener("click", () => {
     modal.style.display = "block";
   });
 
-  // === CLOSE ADD MODAL ===
   closeBtn.addEventListener("click", () => {
     modal.style.display = "none";
   });
 
-  // === CLOSE MODAL BY CLICKING OUTSIDE ===
-  window.addEventListener("click", (e) => {
+  window.addEventListener("click", (e: MouseEvent) => {
     if (e.target === modal) {
       modal.style.display = "none";
     }
   });
 
-  // === HANDLE SHORTCUT FORM SUBMISSION ===
   form.addEventListener("submit", (e) => {
     e.preventDefault();
-    const url = form.querySelector('input[type="url"]').value.trim();
+    const input = form.querySelector('input[type="url"]') as HTMLInputElement;
+    const url = input.value.trim();
     if (!url || !url.startsWith("http")) return;
 
     addShortcutElement(url);
@@ -217,6 +203,5 @@ img.style.height = "24px";
     modal.style.display = "none";
   });
 
-  // === INIT ===
   loadShortcuts();
 });
