@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
   // Function to get favicon URL respecting backend toggle
   function getFaviconUrl(siteUrl: string): string {
-    const base = ApiRouter.getApiBase("favicon"); // your global backend toggle helper
+    const base = ApiRouter.getApiBase("favicon"); // global backend toggle helper
     if (base) {
       return `${base}?url=${encodeURIComponent(siteUrl)}`;
     } else {
