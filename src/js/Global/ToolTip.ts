@@ -1,39 +1,47 @@
-// Wait until the DOM is fully loaded before running the script
+// Tooltip.ts - Adds delayed tooltips to UI buttons
+
 document.addEventListener("DOMContentLoaded", () => {
-  // Map button class names to their respective tooltip text
-  const tooltipMap = {
+  const tooltipMap: Record<string, string> = {
     AddBtn: "Add Shortcut",
     DeleteBtn: "Delete Shortcut",
     ConfirmDeleteBtn: "Confirm Delete",
     SettingsBtn: "Settings",
     ThemeToggleBtn: "Toggle Theme",
     BackendToggleBtn: "Toggle Backend"
-    // Add more mappings here as needed
+    // Add more mappings as needed
   };
 
-  // Iterate over each entry in the tooltipMap
   Object.entries(tooltipMap).forEach(([className, tooltipText]) => {
-    const buttons = document.querySelectorAll(`.${className}`);
+    const buttons = document.querySelectorAll<HTMLElement>(`.${className}`);
 
-    buttons.forEach(btn => {
-      let hoverTimer;
+    buttons.forEach((btn) => {
+      // Add custom properties to each button element
+      const button = btn as HTMLElement & {
+        _tooltipTimer?: number;
+        _tooltipElement?: HTMLDivElement | null;
+      };
 
-      btn.addEventListener("mouseenter", () => {
-        hoverTimer = setTimeout(() => {
-          showTooltip(btn, tooltipText);
-        }, 500); // Delay in milliseconds
-        btn._tooltipTimer = hoverTimer;
+      let hoverTimer: number;
+
+      button.addEventListener("mouseenter", () => {
+        hoverTimer = window.setTimeout(() => {
+          showTooltip(button, tooltipText);
+        }, 500);
+        button._tooltipTimer = hoverTimer;
       });
 
-      btn.addEventListener("mouseleave", (e) => {
-        clearTimeout(btn._tooltipTimer);
+      button.addEventListener("mouseleave", (e) => {
+        clearTimeout(button._tooltipTimer);
         hideTooltip(e);
       });
     });
   });
 
-  // Show tooltip function
-  function showTooltip(button, text) {
+  // Function to create and display a tooltip
+  function showTooltip(
+    button: HTMLElement & { _tooltipElement?: HTMLDivElement | null },
+    text: string
+  ): void {
     const tooltip = document.createElement("div");
     tooltip.className = "js-tooltip";
     tooltip.textContent = text;
@@ -50,7 +58,7 @@ document.addEventListener("DOMContentLoaded", () => {
       zIndex: 9999,
       transition: "opacity 0.2s ease",
       opacity: 0,
-      pointerEvents: "none",
+      pointerEvents: "none"
     });
 
     document.body.appendChild(tooltip);
@@ -62,6 +70,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let left = rect.left + rect.width / 2;
     let top = rect.top - 8;
 
+    // Ensure tooltip doesn't go off screen
     if (left - tooltipWidth / 2 < 4) {
       left = tooltipWidth / 2 + 4;
     }
@@ -79,19 +88,24 @@ document.addEventListener("DOMContentLoaded", () => {
     tooltip.style.top = `${top}px`;
 
     requestAnimationFrame(() => {
-      tooltip.style.opacity = 1;
+      tooltip.style.opacity = "1";
     });
 
     button._tooltipElement = tooltip;
   }
 
-  // Hide tooltip function
-  function hideTooltip(e) {
-    clearTimeout(e.currentTarget._tooltipTimer);
-    const tooltip = e.currentTarget._tooltipElement;
+  // Function to remove tooltip
+  function hideTooltip(e: MouseEvent): void {
+    const target = e.currentTarget as HTMLElement & {
+      _tooltipTimer?: number;
+      _tooltipElement?: HTMLDivElement | null;
+    };
+
+    clearTimeout(target._tooltipTimer);
+    const tooltip = target._tooltipElement;
     if (tooltip) {
       tooltip.remove();
-      e.currentTarget._tooltipElement = null;
+      target._tooltipElement = null;
     }
   }
 });
