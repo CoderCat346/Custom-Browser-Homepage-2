@@ -1,6 +1,6 @@
 # Project Directory Structure
 
-This file outlines the structure of the `Custom-Browser-Homepage-2` repository after organizing source files under `src/`.
+This file outlines the structure of the `Custom-Browser-Homepage-2` repository after organizing source files under `src/` and migrating to TypeScript.
 
 ```text
 Custom-Browser-Homepage-2/
@@ -36,7 +36,7 @@ Custom-Browser-Homepage-2/
 │   │   └── design/
 │   │       ├── ConditionalUI/
 │   │       │   ├── Background.css
-│   │       │   ├── Modal.css
+│   │       │   ├── ShortcutModal.css
 │   │       │   ├── SlideBar.css
 │   │       │   └── Widgets/
 │   │       │       ├── News.css
@@ -51,31 +51,36 @@ Custom-Browser-Homepage-2/
 │   │           ├── HelloUser.css
 │   │           ├── Notes.css
 │   │           └── SearchBar.css
-│   └── js/
-│       ├── Global/
-|       |   ├── ApiRouter.js
-│       │   └── ToolTip.js
-│       ├── LeftColumn/
-│       │   └── Shortcuts.js
-│       ├── MainContentArea/
-│       │   ├── Non-Togglable/
-│       │   │   ├── Clock.js
-│       │   │   ├── HelloUser.js
-│       │   │   ├── Notes.js
-│       │   │   └── SearchBar.js
-│       │   └── Togglable/
-│       │       ├── News.js
-│       │       ├── Quran.js
-│       │       ├── RSS.js
-│       │       └── Weather.js
-│       └── RightColumn/
-│           ├── Slidebar/
-│           │   ├── Background.js
-│           │   ├── SlideBar.js
-│           │   ├── WidgetToggle.js
-│           │   ├── layoutChanger.js
-│           │   └── ClearLocalStorage.js  
-│           └── ThemeToggleBtn.js
+│   ├── js/
+│   │   ├── Global/
+│   │   │   ├── ApiRouter.js
+│   │   │   └── ToolTip.ts
+│   │   ├── LeftColumn/
+│   │   │   └── Shortcuts.ts
+│   │   ├── MainContentArea/
+│   │   │   ├── Non-Togglable/
+│   │   │   │   ├── Clock.ts
+│   │   │   │   ├── HelloUser.ts
+│   │   │   │   ├── Notes.ts
+│   │   │   │   └── SearchBar.ts
+│   │   │   └── Togglable/
+│   │   │       ├── News.ts
+│   │   │       ├── Quran.ts
+│   │   │       ├── RSS.ts
+│   │   │       └── Weather.ts
+│   │   └── RightColumn/
+│   │       ├── BackendToggleBtn.ts
+│   │       ├── Slidebar/
+│   │       │   ├── Background.ts
+│   │       │   ├── ClearLocalStorage.js
+│   │       │   ├── SlideBar.ts
+│   │       │   ├── WidgetToggle.ts
+│   │       │   └── layoutChanger.ts
+│   │       └── ThemeToggleBtn.ts
+│   └── globals.d.ts
 ├── index.html
+├── package.json
+├── package-lock.json
 ├── README.md
 └── STRUCTURE.md
+```
